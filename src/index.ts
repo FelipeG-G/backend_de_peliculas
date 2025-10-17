@@ -28,8 +28,14 @@ app.use("/api/v1", routes);
  */
 app.get("/", (req, res) => res.send("Server is running"));
 
-// Iniciar el servidor
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
-});
+/**
+ * Start server (only if executed directly)
+ */
+if (require.main === module) {
+  const PORT = process.env.PORT || 8080;
+  app.listen(PORT, () => {
+    console.log(` Server running on http://localhost:${PORT}`);
+  });
+}
+
+export default app;
