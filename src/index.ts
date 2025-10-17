@@ -22,6 +22,11 @@ connectDB();
  * Mount API routes under /api/v1
  */
 app.use("/api/v1", routes);
+/**
+ * Health check endpoint.
+ * Provides a simple way to verify that the server is running.
+ */
+app.get("/", (req, res) => res.send("Server is running"));
 
 // Iniciar el servidor
 const PORT = process.env.PORT || 8080;
