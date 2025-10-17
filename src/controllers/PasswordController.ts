@@ -2,22 +2,21 @@ import { Request, Response } from "express";
 import crypto from "crypto";
 import bcrypt from "bcryptjs";
 import sgMail from "@sendgrid/mail";
-import { User } from "../models/User";
+import User, { IUser } from "../models/User"; // ✅ importa bien el modelo y la interfaz
 
-    
 sgMail.setApiKey(process.env.SENDGRID_API_KEY || "");
 
 /**
  * Controlador de recuperación y restablecimiento de contraseña.
  */
 class PasswordController {
-  /** 
-   * Paso 1: Solicitar recuperación de contraseña 
+  /**
+   * Paso 1: Solicitar recuperación de contraseña
    */
   async forgotPassword(req: Request, res: Response): Promise<void> {
     try {
       const { email } = req.body;
-      const user = await User.findOne({ email });
+      const user = (await User.findOne({ email })) as IUser; // ✅ casteo explícito
 
       if (!user) {
         res.status(404).json({ msg: "Usuario no encontrado" });
@@ -26,7 +25,7 @@ class PasswordController {
 
       const resetToken = crypto.randomBytes(32).toString("hex");
       user.resetPasswordToken = resetToken;
-      user.resetPasswordExpires = new Date(Date.now() + 3600000);
+      user.resetPasswordExpires = new Date(Date.now() + 3600000); // 1 hora
 
       await user.save();
 
@@ -37,7 +36,7 @@ class PasswordController {
 
       const msg = {
         to: user.email,
-        from: "nextstepoficial@gmail.com", // debe estar verificado en SendGrid
+        from: "movienestplataforma@gmail.com", // debe estar verificado en SendGrid
         subject: "Recuperación de contraseña",
         html: `
           <p>Has solicitado recuperar tu contraseña</p>
@@ -53,17 +52,17 @@ class PasswordController {
     }
   }
 
-  /** 
-   * Paso 2: Restablecer la contraseña con el token 
+  /**
+   * Paso 2: Restablecer la contraseña con el token
    */
   async resetPassword(req: Request, res: Response): Promise<void> {
     try {
       const { token, newPassword } = req.body;
 
-      const user = await User.findOne({
+      const user = (await User.findOne({
         resetPasswordToken: token,
         resetPasswordExpires: { $gt: Date.now() },
-      });
+      })) as IUser; // ✅ casteo explícito
 
       if (!user) {
         res.status(400).json({ msg: "Token inválido o expirado" });

@@ -1,8 +1,12 @@
+import GlobalController from "./GlobalController";
+import UserDAO from "../dao/UserDAO";
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"; // Importa jsonwebtoken correctamente
 import User from "../models/User"; // Asegúrate de importar el modelo de usuario
 
+// Instancia del controlador genérico usando el DAO específico
+const globalController = new GlobalController(UserDAO);
 // Función para registrar un usuario
 export const registerUser = async (req: Request, res: Response) => {
   const { username, lastname, birthdate, email, password } = req.body;
@@ -28,7 +32,7 @@ export const registerUser = async (req: Request, res: Response) => {
     await newUser.save();
 
     return res.status(201).json({ message: "✅ Registro exitoso" });
-  } catch (error) {
+  } catch (error: any) {
     return res
       .status(500)
       .json({
@@ -70,7 +74,7 @@ export const loginUser = async (req: Request, res: Response) => {
       message: "✅ Inicio de sesión exitoso",
       token, // Retorna el token JWT
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error en login:", error);
     return res
       .status(500)
@@ -80,3 +84,20 @@ export const loginUser = async (req: Request, res: Response) => {
       });
   }
 };
+/**
+ * ✅ Combina los métodos genéricos de GlobalController + específicos
+ */
+const UserController = {
+  // Métodos del GlobalController
+  create: globalController.create.bind(globalController),
+  read: globalController.read.bind(globalController),
+  update: globalController.update.bind(globalController),
+  delete: globalController.delete.bind(globalController),
+  getAll: globalController.getAll.bind(globalController),
+
+  // Métodos personalizados
+  registerUser,
+  loginUser,
+};
+
+export default UserController;

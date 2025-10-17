@@ -1,5 +1,5 @@
 import GlobalDAO from "./GlobalDAO";
-import { User, IUser } from "../models/User";
+import User, { IUser } from "../models/User";
 
 /**
  * UserDAO - Data Access Object for the User model.

@@ -1,35 +1,28 @@
-import mongoose from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
 
-// Definir el esquema del usuario
-const userSchema = new mongoose.Schema(
+export interface IUser extends Document {
+  username: string;
+  lastname: string;
+  birthdate: Date;
+  email: string;
+  password: string;
+  resetPasswordToken?: string;
+  resetPasswordExpires?: Date;
+
+}
+
+const userSchema = new Schema<IUser>(
   {
-    username: {
-      type: String,
-      required: true,
-    },
-    lastname: {
-      type: String,
-      required: true,
-    },
-    birthdate: {
-      type: Date, // Mejor usar Date para las fechas
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true, // Asegura que no se repitan los correos
-      match: [/\S+@\S+\.\S+/, "Por favor, ingrese un correo electrónico válido"], // Validación del formato de correo
-    },
-    password: {
-      type: String,
-      required: true,
-    },
+    username: { type: String, required: true },
+    lastname: { type: String, required: true },
+    birthdate: { type: Date, required: true },
+    email: { type: String, required: true, unique: true,match: [/\S+@\S+\.\S+/, "Por favor, ingrese un correo electrónico válido"]},
+    password: { type: String, required: true },
+    resetPasswordToken: { type: String },
+    resetPasswordExpires: { type: Date }, 
   },
-  { timestamps: true } // Esto agrega las propiedades createdAt y updatedAt automáticamente
+  { timestamps: true }
 );
 
-// Crear el modelo
-const User = mongoose.model("User", userSchema);
-
+const User = mongoose.model<IUser>("User", userSchema);
 export default User;

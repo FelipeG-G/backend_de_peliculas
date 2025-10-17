@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";  // Asegúrate de que CORS esté habilitado para tu frontend
 import connectDB from "./config/database"; // Conexión a MongoDB
 import authRoutes from "./routes/authRoutes"; // Rutas de autenticación
-
+import routes from "./routes/routes";
 dotenv.config();  // Cargar las variables de entorno
 
 const app = express();
@@ -17,6 +17,11 @@ app.use("/api/auth", authRoutes);
 
 // Conexión a la base de datos
 connectDB();
+
+/**
+ * Mount API routes under /api/v1
+ */
+app.use("/api/v1", routes);
 
 // Iniciar el servidor
 const PORT = process.env.PORT || 8080;

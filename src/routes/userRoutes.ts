@@ -6,50 +6,43 @@ const router = Router();
 
 /**
  * @route GET /users
- * @description Retrieve all users.
- * @access Public
+ * @description Obtener todos los usuarios.
  */
 router.get("/", (req: Request, res: Response) => UserController.getAll(req, res));
 
 /**
  * @route POST /users/register
- * @description Register a new user.
- * @access Public
+ * @description Registrar un nuevo usuario.
  */
-router.post("/register", (req: Request, res: Response) => UserController.register(req, res));
+router.post("/register", (req: Request, res: Response) => UserController.registerUser(req, res));
+
+/**
+ * @route POST /users/login
+ * @description Iniciar sesión de usuario.
+ */
+router.post("/login", (req: Request, res: Response) => UserController.loginUser(req, res));
 
 /**
  * @route GET /users/:id
- * @description Retrieve a user by ID.
- * @param {string} id - The unique identifier of the user.
- * @access Public
+ * @description Obtener un usuario por ID.
  */
 router.get("/:id", (req: Request, res: Response) => UserController.read(req, res));
 
 /**
  * @route POST /users
- * @description Create a new user.
- * @body {string} username - The username of the user.
- * @body {string} password - The password of the user.
- * @access Public
+ * @description Crear un usuario.
  */
 router.post("/", (req: Request, res: Response) => UserController.create(req, res));
 
 /**
  * @route PUT /users/:id
- * @description Update an existing user by ID.
- * @param {string} id - The unique identifier of the user.
- * @body {string} [username] - Updated username (optional).
- * @body {string} [password] - Updated password (optional).
- * @access Public
+ * @description Actualizar un usuario existente.
  */
 router.put("/:id", (req: Request, res: Response) => UserController.update(req, res));
 
 /**
  * @route DELETE /users/:id
- * @description Delete a user by ID.
- * @param {string} id - The unique identifier of the user.
- * @access Public
+ * @description Eliminar un usuario.
  */
 router.delete("/:id", (req: Request, res: Response) => UserController.delete(req, res));
 
