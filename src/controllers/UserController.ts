@@ -17,7 +17,7 @@ const sendResetEmail = async (email: string, token: string) => {
     },
   });
 
-  const resetUrl = `http://localhost:8080/reset-password/${token}`; // URL para el restablecimiento de contraseña
+  const resetUrl = `http://localhost:5173/reset-password/${token}`; // URL para el restablecimiento de contraseña
 
   const mailOptions = {
     from: process.env.EMAIL_USER,
@@ -48,7 +48,7 @@ export const requestPasswordReset = async (req: Request, res: Response) => {
     await user.save();
 
     // Enviar el correo de restablecimiento
-    const resetUrl = `http://localhost:8080/reset-password/${resetToken}`;
+    const resetUrl = `http://localhost:5173/#/new-password/${resetToken}`;
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {

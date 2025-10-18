@@ -47,7 +47,7 @@ class PasswordController {
       await user.save();
 
       // URL de recuperación
-      const resetURL = `http://localhost:5173/#/reset-password?token=${resetToken}`;
+      const resetURL = `http://localhost:5173/#/new-password?token=${resetToken}`;
 
 
       // const resetURL = `http://localhost:5173/#/reset-password?token=${resetToken}`;
@@ -59,6 +59,7 @@ class PasswordController {
         <a href="${resetURL}">${resetURL}</a>
         <p>⚠️ Este enlace expirará en 1 hora.</p>
       `;
+
 
       console.log("📧 Enviando correo a:", user.email);
       console.log("🔗 URL de recuperación:", resetURL);
