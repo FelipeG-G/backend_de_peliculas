@@ -42,18 +42,32 @@ export const requestPasswordReset = async (req: Request, res: Response) => {
     // Generar un token de restablecimiento único
     const resetToken = crypto.randomBytes(32).toString("hex");
 
-    // Guardar el token en la base de datos (en este ejemplo, en el modelo User)
+    // Guardar el token en la base de datos
     user.resetPasswordToken = resetToken;
-    user.resetPasswordExpires = new Date(Date.now() + 3600000);
- // El token será válido por 1 hora
+    user.resetPasswordExpires = Date.now() + 3600000; // 1 hora de validez
     await user.save();
 
     // Enviar el correo de restablecimiento
-    await sendResetEmail(email, resetToken);
+    const resetUrl = `http://localhost:8080/reset-password/${resetToken}`;
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
 
-    return res.status(200).json({ message: "✅ Hemos enviado un correo para restablecer la contraseña" });
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: "Restablecimiento de contraseña",
+      text: `Haga clic en el siguiente enlace para restablecer su contraseña: ${resetUrl}`,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    return res.status(200).json({ message: "✅ Se ha enviado un correo para restablecer la contraseña" });
   } catch (error) {
-    console.error("Error al enviar el correo:", error);
     return res.status(500).json({ message: "❌ Error al enviar el correo", error });
   }
 };
@@ -65,25 +79,21 @@ export const resetPassword = async (req: Request, res: Response) => {
   try {
     const user = await User.findOne({
       resetPasswordToken: token,
-      resetPasswordExpires: { $gt: Date.now() }, // Verifica si el token no ha expirado
+      resetPasswordExpires: { $gt: Date.now() },
     });
 
     if (!user) {
-      return res.status(400).json({ message: "❌ El token de restablecimiento es inválido o ha expirado" });
+      return res.status(400).json({ message: "❌ El token ha expirado o no es válido" });
     }
 
-    // Encriptar la nueva contraseña
     const hashedPassword = await bcrypt.hash(newPassword, 10);
-
-    // Actualizar la contraseña del usuario
     user.password = hashedPassword;
-    user.resetPasswordToken = undefined; // Limpiar el token de restablecimiento
-    user.resetPasswordExpires = undefined; // Limpiar la expiración del token
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
     await user.save();
 
     return res.status(200).json({ message: "✅ Contraseña restablecida correctamente" });
   } catch (error) {
-    console.error("Error al restablecer la contraseña:", error);
     return res.status(500).json({ message: "❌ Error al restablecer la contraseña", error });
   }
 };
@@ -160,6 +170,39 @@ export const loginUser = async (req: Request, res: Response) => {
     });
   }
 };
+
+
+// Función para obtener los datos del perfil de un usuario autenticado
+export const getUserProfile = async (req: Request, res: Response) => {
+  try {
+    // Suponiendo que el ID del usuario está disponible a través del middleware (req.user.id)
+    const userId = req.user.id; // El ID del usuario se extrae del token JWT
+    
+    // Buscar al usuario por su ID en la base de datos
+    const user = await User.findById(userId);
+    
+    if (!user) {
+      return res.status(404).json({ message: "❌ Usuario no encontrado" });
+    }
+
+    // Devolver los datos del usuario
+    return res.status(200).json({
+      user: {
+        username: user.username,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        birthdate: user.birthdate,
+      }
+    });
+  } catch (error) {
+    console.error("Error al obtener perfil de usuario:", error);
+    return res.status(500).json({ message: "❌ Error al obtener el perfil" });
+  }
+};
+
+
+
 
 // Combina los métodos genéricos de GlobalController + específicos
 const globalController = new GlobalController(UserDAO);

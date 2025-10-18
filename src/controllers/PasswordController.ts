@@ -47,7 +47,9 @@ class PasswordController {
       await user.save();
 
       // URL de recuperación
-      const resetURL = `https://to-do-list-client-nextstep.vercel.app/#/reset-password?token=${resetToken}`;
+      const resetURL = `http://localhost:5173/#/reset-password?token=${resetToken}`;
+
+
       // const resetURL = `http://localhost:5173/#/reset-password?token=${resetToken}`;
 
       const htmlMessage = `
