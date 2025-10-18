@@ -44,7 +44,7 @@ export const requestPasswordReset = async (req: Request, res: Response) => {
 
     // Guardar el token en la base de datos
     user.resetPasswordToken = resetToken;
-    user.resetPasswordExpires = Date.now() + 3600000; // 1 hora de validez
+    user.resetPasswordExpires = new Date(Date.now() + 3600000);// 1 hora de validez
     await user.save();
 
     // Enviar el correo de restablecimiento
