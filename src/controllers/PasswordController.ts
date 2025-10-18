@@ -2,12 +2,24 @@ import { Request, Response } from "express";
 import crypto from "crypto";
 import bcrypt from "bcryptjs";
 import sgMail from "@sendgrid/mail";
-import User, { IUser } from "../models/User"; // ✅ importa bien el modelo y la interfaz
+import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+import User, { IUser } from "../models/User";
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY || "");
+dotenv.config();
 
 /**
- * Controlador de recuperación y restablecimiento de contraseña.
+ * Configurar SendGrid si existe la API key
+ */
+if (process.env.SENDGRID_API_KEY) {
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  console.log("✅ SendGrid configurado correctamente");
+} else {
+  console.warn("⚠️ No se encontró SENDGRID_API_KEY, se usará Nodemailer como respaldo");
+}
+
+/**
+ * Controlador para recuperación y restablecimiento de contraseña.
  */
 class PasswordController {
   /**
@@ -16,39 +28,90 @@ class PasswordController {
   async forgotPassword(req: Request, res: Response): Promise<void> {
     try {
       const { email } = req.body;
-      const user = (await User.findOne({ email })) as IUser; // ✅ casteo explícito
 
+      if (!email) {
+        res.status(400).json({ msg: "El campo 'email' es obligatorio" });
+        return;
+      }
+
+      const user = (await User.findOne({ email })) as IUser;
       if (!user) {
         res.status(404).json({ msg: "Usuario no encontrado" });
         return;
       }
 
+      // Generar token único
       const resetToken = crypto.randomBytes(32).toString("hex");
       user.resetPasswordToken = resetToken;
       user.resetPasswordExpires = new Date(Date.now() + 3600000); // 1 hora
-
       await user.save();
 
-      // URL del cliente para restablecer contraseña
+      // URL de recuperación
       const resetURL = `https://to-do-list-client-nextstep.vercel.app/#/reset-password?token=${resetToken}`;
-      // Si trabajas en local:
       // const resetURL = `http://localhost:5173/#/reset-password?token=${resetToken}`;
 
-      const msg = {
-        to: user.email,
-        from: "movienestplataforma@gmail.com", // debe estar verificado en SendGrid
-        subject: "Recuperación de contraseña",
-        html: `
-          <p>Has solicitado recuperar tu contraseña</p>
-          <p>Haz clic aquí: <a href="${resetURL}">${resetURL}</a></p>
-        `,
-      };
+      const htmlMessage = `
+        <p>Hola ${user.username || "usuario"},</p>
+        <p>Has solicitado recuperar tu contraseña.</p>
+        <p>Haz clic en el siguiente enlace para restablecerla:</p>
+        <a href="${resetURL}">${resetURL}</a>
+        <p>⚠️ Este enlace expirará en 1 hora.</p>
+      `;
 
-      await sgMail.send(msg);
+      console.log("📧 Enviando correo a:", user.email);
+      console.log("🔗 URL de recuperación:", resetURL);
+
+      // === ENVÍO DEL CORREO ===
+      if (process.env.SENDGRID_API_KEY) {
+        try {
+          await sgMail.send({
+            to: user.email,
+            from: "movienestplataforma@gmail.com", // Debe estar verificado en SendGrid
+            subject: "Recuperación de contraseña",
+            html: htmlMessage,
+          });
+          console.log("✅ Correo enviado con SendGrid");
+        } catch (err: any) {
+          console.error("❌ Error enviando con SendGrid:", err.response?.body || err);
+          throw new Error("Error al enviar el correo con SendGrid");
+        }
+      } else {
+        // === Fallback: Nodemailer (modo local o sin SendGrid)
+        if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+          throw new Error("Faltan EMAIL_USER o EMAIL_PASS en el archivo .env");
+        }
+
+        const transporter = nodemailer.createTransport({
+          host: "smtp.gmail.com",
+          port: 465,
+          secure: true,
+          auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS,
+          },
+        });
+
+        try {
+          await transporter.sendMail({
+            from: `"MovieNest" <${process.env.EMAIL_USER}>`,
+            to: user.email,
+            subject: "Recuperación de contraseña",
+            html: htmlMessage,
+          });
+          console.log("✅ Correo enviado con Nodemailer");
+        } catch (err: any) {
+          console.error("❌ Error enviando con Nodemailer:", err);
+          throw new Error("Error al enviar el correo con Nodemailer");
+        }
+      }
+
       res.json({ msg: "Se envió un email para recuperar tu contraseña" });
     } catch (err: any) {
-      console.error("ForgotPassword error:", err.response?.body || err);
-      res.status(500).json({ msg: "Error en el servidor" });
+      console.error("🔥 ForgotPassword error completo:", err);
+      res.status(500).json({
+        msg: "Error en el servidor",
+        error: err.message || JSON.stringify(err),
+      });
     }
   }
 
@@ -59,10 +122,15 @@ class PasswordController {
     try {
       const { token, newPassword } = req.body;
 
+      if (!token || !newPassword) {
+        res.status(400).json({ msg: "Token y nueva contraseña son requeridos" });
+        return;
+      }
+
       const user = (await User.findOne({
         resetPasswordToken: token,
         resetPasswordExpires: { $gt: Date.now() },
-      })) as IUser; // ✅ casteo explícito
+      })) as IUser;
 
       if (!user) {
         res.status(400).json({ msg: "Token inválido o expirado" });
@@ -71,17 +139,17 @@ class PasswordController {
 
       const salt = await bcrypt.genSalt(10);
       user.password = await bcrypt.hash(newPassword, salt);
-
-      // Limpiar el token
       user.resetPasswordToken = undefined;
       user.resetPasswordExpires = undefined;
-
       await user.save();
 
       res.json({ msg: "Contraseña actualizada correctamente" });
-    } catch (err) {
-      console.error("ResetPassword error:", err);
-      res.status(500).json({ msg: "Error en el servidor" });
+    } catch (err: any) {
+      console.error("🔥 ResetPassword error completo:", err);
+      res.status(500).json({
+        msg: "Error en el servidor",
+        error: err.message || JSON.stringify(err),
+      });
     }
   }
 }
