@@ -1,11 +1,7 @@
 import { Request, Response } from "express";
 
 /**
- * Generic controller providing common CRUD operations.
- * 
- * Acts as a middle layer between Express requests and DAO logic.
- * Controllers such as UserController or MovieController extend this class
- * or use it as a base to quickly implement REST endpoints.
+ * Controlador genérico que proporciona operaciones CRUD comunes.
  */
 export default class GlobalController<T> {
   private dao: any;
@@ -15,7 +11,7 @@ export default class GlobalController<T> {
   }
 
   /**
-   * Create a new document in the database.
+   * Crear un nuevo documento en la base de datos.
    */
   async create(req: Request, res: Response): Promise<void> {
     try {
@@ -27,7 +23,7 @@ export default class GlobalController<T> {
   }
 
   /**
-   * Retrieve a document by its ID.
+   * Recuperar un documento por su ID.
    */
   async read(req: Request, res: Response): Promise<void> {
     try {
@@ -39,7 +35,7 @@ export default class GlobalController<T> {
   }
 
   /**
-   * Update a document by ID.
+   * Actualizar un documento por ID.
    */
   async update(req: Request, res: Response): Promise<void> {
     try {
@@ -51,7 +47,7 @@ export default class GlobalController<T> {
   }
 
   /**
-   * Delete a document by ID.
+   * Eliminar un documento por ID.
    */
   async delete(req: Request, res: Response): Promise<void> {
     try {
@@ -63,7 +59,7 @@ export default class GlobalController<T> {
   }
 
   /**
-   * Retrieve all documents (optionally filtered by query).
+   * Recuperar todos los documentos (opcionalmente filtrados por consulta).
    */
   async getAll(req: Request, res: Response): Promise<void> {
     try {
