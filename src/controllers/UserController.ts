@@ -44,46 +44,45 @@ export const registerUser = async (req: Request, res: Response) => {
 
 // Función para iniciar sesión
 export const loginUser = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
+  const { email, password } = req.body; // Recibe email y password desde el body
 
   try {
-    const user = await User.findOne({ email });
-    console.log("Usuario encontrado:", user); // Verifica si el usuario está siendo encontrado correctamente
+    const user = await User.findOne({ email }); // Buscar al usuario por email
     if (!user) {
       return res
         .status(400)
         .json({ message: "❌ Usuario o contraseña incorrectos" });
     }
 
+    // Comparar la contraseña encriptada con la ingresada por el usuario
     const isPasswordValid = await bcrypt.compare(password, user.password);
-    console.log("Contraseña válida:", isPasswordValid); // Verifica si la contraseña es válida
     if (!isPasswordValid) {
       return res
         .status(400)
         .json({ message: "❌ Usuario o contraseña incorrectos" });
     }
 
+    // Generar un token JWT para el usuario
     const token = jwt.sign(
       { userId: user._id, email: user.email },
-      process.env.JWT_SECRET!, // Usa la clave secreta desde el .env
-      { expiresIn: "1h" }
+      process.env.JWT_SECRET as string, // La clave secreta de JWT en .env
+      { expiresIn: "1h" } // El token expirará en 1 hora
     );
-    console.log("Token generado:", token); // Log para verificar el token generado
 
+    // Responder con el token generado
     return res.status(200).json({
       message: "✅ Inicio de sesión exitoso",
-      token, // Retorna el token JWT
+      token, // Retorna el token para que el frontend lo almacene
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error en login:", error);
-    return res
-      .status(500)
-      .json({
-        message: "❌ Error al intentar iniciar sesión",
-        error: error.message,
-      });
+    return res.status(500).json({
+      message: "❌ Error al intentar iniciar sesión",
+      error: error.message,
+    });
   }
 };
+
 /**
  * ✅ Combina los métodos genéricos de GlobalController + específicos
  */
