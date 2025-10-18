@@ -171,37 +171,83 @@ export const loginUser = async (req: Request, res: Response) => {
   }
 };
 
-
-// Función para obtener los datos del perfil de un usuario autenticado
-export const getUserProfile = async (req: Request, res: Response) => {
+// Obtener el perfil del usuario logueado
+export const getProfile = async (req: Request, res: Response) => {
   try {
-    // Suponiendo que el ID del usuario está disponible a través del middleware (req.user.id)
-    const userId = req.user.id; // El ID del usuario se extrae del token JWT
-    
-    // Buscar al usuario por su ID en la base de datos
-    const user = await User.findById(userId);
-    
+    const authHeader = req.headers.authorization;
+    const token = authHeader && authHeader.split(" ")[1];
+
+    if (!token) return res.status(401).json({ message: "Token no proporcionado" });
+
+    if (!process.env.JWT_SECRET) {
+      return res.status(500).json({ message: "JWT secret no configurado" });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET as jwt.Secret) as unknown as { userId: string };
+    const user = await User.findById(decoded.userId).select("-password");
+
+    if (!user) return res.status(404).json({ message: "Usuario no encontrado" });
+
+    res.json({ user });
+  } catch (error: any) {
+    res.status(401).json({ message: "Token inválido o expirado", error: error.message });
+  }
+};
+
+
+// ✅ Editar perfil del usuario logueado (sin pedir id)
+export const updateProfile = async (req: Request, res: Response) => {
+  try {
+    // el front debe mandar el email o token decodificado
+    const { email, username, lastname, birthdate, password } = req.body;
+
+    const user = await User.findOne({ email });
     if (!user) {
       return res.status(404).json({ message: "❌ Usuario no encontrado" });
     }
 
-    // Devolver los datos del usuario
+    // Actualizar los campos recibidos
+    if (username) user.username = username;
+    if (lastname) user.lastname = lastname;
+    if (birthdate) user.birthdate = birthdate;
+    if (password) user.password = await bcrypt.hash(password, 10);
+    if (email) user.email =email;
+    await user.save();
+
     return res.status(200).json({
-      user: {
-        username: user.username,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        birthdate: user.birthdate,
-      }
+      message: "✅ Perfil actualizado correctamente",
+      user,
     });
-  } catch (error) {
-    console.error("Error al obtener perfil de usuario:", error);
-    return res.status(500).json({ message: "❌ Error al obtener el perfil" });
+  } catch (error: any) {
+    return res.status(500).json({
+      message: "❌ Error al actualizar perfil",
+      error: error.message,
+    });
   }
 };
+// ✅ Eliminar cuenta del usuario logueado
+export const deleteProfile = async (req: Request, res: Response) => {
+  try {
+    const authHeader = req.headers.authorization;
+    const token = authHeader && authHeader.split(" ")[1];
+    if (!token) return res.status(401).json({ message: "Token no proporcionado" });
 
+    if (!process.env.JWT_SECRET) {
+      return res.status(500).json({ message: "JWT secret no configurado" });
+    }
 
+    const decoded = jwt.verify(token, process.env.JWT_SECRET as jwt.Secret) as { userId: string };
+    const user = await User.findById(decoded.userId);
+    if (!user) return res.status(404).json({ message: "Usuario no encontrado" });
+
+    await user.deleteOne();
+
+    return res.status(200).json({ message: "✅ Cuenta eliminada correctamente" });
+  } catch (error: any) {
+    console.error("Error al eliminar cuenta:", error);
+    return res.status(500).json({ message: "❌ Error al eliminar cuenta", error: error.message });
+  }
+};
 
 
 // Combina los métodos genéricos de GlobalController + específicos
@@ -216,6 +262,9 @@ const UserController = {
   loginUser,
   requestPasswordReset,
   resetPassword,
+  getProfile,
+  updateProfile,
+  deleteProfile
 };
 
 export default UserController;

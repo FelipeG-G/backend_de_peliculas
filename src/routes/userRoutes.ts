@@ -1,11 +1,17 @@
-import { Router } from "express";
-import { loginUser, registerUser, requestPasswordReset, resetPassword, getUserProfile } from "../controllers/UserController"; // Importa las funciones de UserController
-import authMiddleware from "../middleware/authMiddleware"; // Importa el middleware de autenticación
+import { Router, Request, Response } from "express";
+import { loginUser, registerUser, requestPasswordReset, resetPassword} from "../controllers/UserController"; // Importa las funciones de UserController
+import UserController from "../controllers/UserController";
 
 const router = Router();
 
 // Ruta para iniciar sesión
 router.post("/login", loginUser);
+
+
+router.get("/profile", (req: Request, res: Response) => UserController.getProfile(req, res));
+router.put("/profile", (req: Request, res: Response) => UserController.updateProfile(req, res));
+
+router.delete("/profile", (req: Request, res: Response) => UserController.deleteProfile(req, res));
 
 // Ruta para registrar usuario
 router.post("/register", registerUser);
@@ -15,8 +21,5 @@ router.post("/request-password-reset", requestPasswordReset);
 
 // Ruta para restablecer la contraseña
 router.post("/reset-password", resetPassword);
-
-// Ruta para obtener los datos del perfil de usuario (protegida)
-router.get("/", authMiddleware, getUserProfile);  // Ruta protegida para obtener el perfil del usuario
 
 export default router;  // Aquí exportamos correctamente el router
