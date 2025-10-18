@@ -44,7 +44,8 @@ export const requestPasswordReset = async (req: Request, res: Response) => {
 
     // Guardar el token en la base de datos (en este ejemplo, en el modelo User)
     user.resetPasswordToken = resetToken;
-    user.resetPasswordExpires = Date.now() + 3600000; // El token será válido por 1 hora
+    user.resetPasswordExpires = new Date(Date.now() + 3600000);
+ // El token será válido por 1 hora
     await user.save();
 
     // Enviar el correo de restablecimiento
@@ -151,7 +152,7 @@ export const loginUser = async (req: Request, res: Response) => {
       message: "✅ Inicio de sesión exitoso",
       token,
     });
-  } catch (error) {
+  } catch (error:any) {
     console.error("Error en login:", error);
     return res.status(500).json({
       message: "❌ Error al intentar iniciar sesión",
