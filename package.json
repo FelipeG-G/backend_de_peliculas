@@ -31,7 +31,7 @@
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/mongoose": "^5.11.96",
-    "@types/node": "^24.8.1",
+    "@types/node": "^24.9.0",
     "@types/nodemailer": "^7.0.2",
     "nodemo": "^1.0.0",
     "nodemon": "^3.1.10",
