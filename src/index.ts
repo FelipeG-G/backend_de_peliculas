@@ -13,7 +13,7 @@ const app = express();
 
 // Middleware
 app.use(express.json());  // Para que el servidor pueda procesar datos JSON
-app.use(cors({ origin: "http://localhost:5173" })); // Permite solicitudes desde el frontend (React)
+app.use(cors({ origin: "https://front-prueba-v1.vercel.app" })); // Permite solicitudes desde el frontend (React)
 
 // Usar rutas de autenticación
 app.use("/api/auth", authRoutes);
