@@ -31,24 +31,31 @@ const sendResetEmail = async (email: string, token: string) => {
 
 // Ruta para solicitar el restablecimiento de contraseña
 export const requestPasswordReset = async (req: Request, res: Response) => {
-  const { email } = req.body;
-
   try {
+    const { email } = req.body;
+
+    console.log("📩 Intentando enviar correo de restablecimiento a:", email);
+
+    // 1️⃣ Buscar usuario
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ message: "❌ El correo no está registrado" });
+      console.warn("⚠️ No se encontró el usuario con ese email");
+      return res.status(404).json({ message: "Usuario no encontrado" });
     }
 
-    // Generar un token de restablecimiento único
+    // 2️⃣ Generar token único
     const resetToken = crypto.randomBytes(32).toString("hex");
+    const resetTokenExpires = Date.now() + 3600000; // 1 hora
 
-    // Guardar el token en la base de datos
     user.resetPasswordToken = resetToken;
-    user.resetPasswordExpires = new Date(Date.now() + 3600000);// 1 hora de validez
+    user.resetPasswordExpires = new Date(resetTokenExpires);
     await user.save();
 
-    // Enviar el correo de restablecimiento
-    const resetUrl = `https://front-prueba-v1.vercel.app/#/new-password/${resetToken}`;
+    // 3️⃣ Crear el enlace (usa el dominio del front)
+    const resetLink = `https://front-prueba-v1.vercel.app/reset-password/${resetToken}`;
+    console.log("🔗 Enlace de restablecimiento generado:", resetLink);
+
+    // 4️⃣ Configurar el transporte SMTP (Gmail)
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -57,21 +64,44 @@ export const requestPasswordReset = async (req: Request, res: Response) => {
       },
     });
 
+    // 5️⃣ Configurar contenido del correo
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: `"MovieNest" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: "Restablecimiento de contraseña",
-      text: `Haga clic en el siguiente enlace para restablecer su contraseña: ${resetUrl}`,
+      html: `
+        <p>Hola ${user.username || user.email || ""},</p>
+        <p>Has solicitado restablecer tu contraseña. Haz clic en el siguiente enlace para continuar:</p>
+        <a href="${resetLink}" target="_blank">${resetLink}</a>
+        <p>Si no solicitaste este cambio, puedes ignorar este correo.</p>
+        <br/>
+        <p>Atentamente,<br/>El equipo de MovieNest 🎬</p>
+      `,
     };
 
+    // 6️⃣ Enviar correo
     await transporter.sendMail(mailOptions);
+    console.log("✅ Correo enviado exitosamente a:", email);
 
-    return res.status(200).json({ message: "✅ Se ha enviado un correo para restablecer la contraseña" });
-  } catch (error) {
-    return res.status(500).json({ message: "❌ Error al enviar el correo", error });
+    res.json({ message: "Correo de restablecimiento enviado correctamente" });
+  } catch (error: any) {
+    console.error("❌ Error en requestPasswordReset:", error);
+
+    // Manejo de errores específicos
+    if (error.response?.includes("535") || error.code === "EAUTH") {
+      return res.status(500).json({
+        message: "Error de autenticación con Gmail. Verifica EMAIL_USER y EMAIL_PASS.",
+      });
+    }
+
+    res.status(500).json({
+      message: "Error al procesar la solicitud de restablecimiento de contraseña.",
+      details: error.message,
+    });
   }
 };
 
+//////////////////////////////////////////////////////////////////////////////////////
 // Ruta para restablecer la contraseña
 export const resetPassword = async (req: Request, res: Response) => {
   const { token, newPassword } = req.body;
