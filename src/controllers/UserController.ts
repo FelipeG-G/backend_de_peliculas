@@ -15,7 +15,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
  * (Reemplaza el uso anterior de nodemailer, ya que Render no permite SMTP)
  */
 const sendResetEmail = async (email: string, token: string) => {
-  const resetUrl = `https://front-prueba-v1.vercel.app/#/reset-password/${token}`; // Enlace del frontend
+  const resetUrl = `https://front-prueba-v1.vercel.app/#/new-password/${token}`; // Enlace del frontend
 
   const msg = {
     to: email,
