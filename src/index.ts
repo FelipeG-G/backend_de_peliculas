@@ -13,8 +13,24 @@ const app = express();
 
 // Middleware
 app.use(express.json());  // Para que el servidor pueda procesar datos JSON
-app.use(cors({ origin: "https://front-prueba-v1.vercel.app" })); // Permite solicitudes desde el frontend (React)
 
+// 🔐 Configurar CORS para Render + Vercel + Localhost
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://front-prueba-v1.vercel.app", // dominio del front en Vercel
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      console.warn("Bloqueado por CORS:", origin);
+      callback(new Error("No permitido por CORS"));
+    }
+  },
+  credentials: true,
+}));
 // Usar rutas de autenticación
 app.use("/api/auth", authRoutes);
 
