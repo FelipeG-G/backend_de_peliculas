@@ -17,7 +17,7 @@ app.use(express.json());  // Para que el servidor pueda procesar datos JSON
 // 🔐 Configurar CORS para Render + Vercel + Localhost
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://front-prueba-v1.vercel.app", // dominio del front en Vercel.
+  "https://to-do-list-client-movienest.vercel.app", // dominio del front en Vercel.
   
 ];
 
