@@ -47,7 +47,7 @@ class PasswordController {
       await user.save();
 
       // URL de recuperación
-      const resetURL = `https://front-prueba-v1.vercel.app/#/new-password?token=${resetToken}`;
+      const resetURL = `https://to-do-list-client-movienest.vercel.app/#/new-password?token=${resetToken}`;
 
 
       // const resetURL = `http://localhost:5173/#/reset-password?token=${resetToken}`;
