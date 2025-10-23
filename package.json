@@ -22,7 +22,8 @@
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.19.1",
-    "nodemailer": "^7.0.9"
+    "nodemailer": "^7.0.9",
+    "pexels": "^1.4.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",

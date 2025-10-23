@@ -4,6 +4,8 @@ import userRoutes from "./userRoutes";
 import movieRoutes from "./movieRoutes";
 import authRoutes from "./authRoutes";
 import passwordRoutes from "./passwordRoutes";
+import favoriteRoutes from "./favoriteRoutes";
+
 
 const router = Router();
 
@@ -22,5 +24,7 @@ router.use("/users", userRoutes);
 router.use("/movies", movieRoutes);
 router.use("/auth", authRoutes);
 router.use("/password", passwordRoutes);
+router.use("/favorites", favoriteRoutes);
+
 
 export default router;

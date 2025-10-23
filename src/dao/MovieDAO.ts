@@ -21,6 +21,24 @@ class MovieDAO {
   async getAll(): Promise<IMovie[]> {
     return await Movie.find().sort({ createdAt: -1 });
   }
+
+  async findByGenre(genre: string): Promise<IMovie[]> {
+    return await Movie.find({ genre }).sort({ createdAt: -1 });
+  }
+
+  async searchByTitle(keyword: string): Promise<IMovie[]> {
+    return await Movie.find({ title: { $regex: keyword, $options: "i" } });
+  }
+  
+
+  async importFromPexels(data: Partial<IMovie>): Promise<IMovie> {
+    const movie = new Movie({
+      ...data,
+      source: "pexels",
+      releaseDate: new Date(),
+    });
+    return await movie.save();
+  }
 }
 
 export default new MovieDAO();

@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import MovieController from "../controllers/MovieController";
-import MovieDAO from "../dao/MovieDAO";
+import { searchVideos } from "../services/pexelsService";
+
 
 const router = Router();
 
@@ -42,4 +43,24 @@ router.put("/:id", (req: Request, res: Response) => MovieController.update(req, 
  */
 router.delete("/:id", (req: Request, res: Response) => MovieController.delete(req, res));
 
+// Extras
+router.get("/genre/:genre", (req: Request, res: Response) =>MovieController.getMoviesByGenre(req, res));
+router.get("/search/title",(req: Request, res: Response) => MovieController.searchMovies(req, res));
+
+
+router.post("/import", (req, res) => MovieController.importMovieFromPexels(req, res));
+router.get("/pexels/search", async (req: Request, res: Response) => {
+  try {
+    const { query } = req.query;
+    if (!query || typeof query !== "string") {
+      return res.status(400).json({ message: "Falta el parámetro 'query'" });
+    }
+
+    const videos = await searchVideos(query, 5); // trae 5 resultados
+    res.status(200).json(videos);
+  } catch (error) {
+    console.error("Error en ruta de prueba Pexels:", error);
+    res.status(500).json({ message: "Error al obtener videos desde Pexels" });
+  }
+});
 export default router;

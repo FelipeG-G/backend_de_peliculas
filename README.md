@@ -20,3 +20,4 @@ npm install express mongoose dotenv cors :  para instalar las dependencias
 
 npm install -D typescript ts-node-dev @types/node @types/express @types/cors @types/mongoose nodemon : 
 para instalar las dependencias de desarrollo
+npm install pexels
