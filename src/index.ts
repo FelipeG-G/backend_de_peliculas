@@ -43,6 +43,7 @@ app.use("/api/v1", routes);
 
 // Usar las rutas de usuario bajo /api/v1/users
 app.use("/api/v1/users", userRoutes);  // Aquí se importa correctamente `userRoutes`
+app.use("/api/v1/favorites", favoriteRoutes);
 
 /**
  * Health check endpoint.
