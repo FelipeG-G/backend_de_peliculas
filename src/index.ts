@@ -5,7 +5,7 @@ import connectDB from "./config/database"; // Conexión a MongoDB
 import authRoutes from "./routes/authRoutes"; // Rutas de autenticación
 import routes from "./routes/routes"; // Rutas generales de la API
 import userRoutes from "./routes/userRoutes"; // Asegúrate de que la ruta de usuarios sea correcta
-
+import favoriteRoutes from "./routes/favoriteRoutes";
 dotenv.config();  // Cargar las variables de entorno
 
 const app = express();
