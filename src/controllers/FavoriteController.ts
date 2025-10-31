@@ -52,7 +52,7 @@ class FavoriteController {
 
       const newFavorite = await FavoriteDAO.addFavorite({
         userId,
-        movieId: movieId ? new mongoose.Types.ObjectId(movieId) : undefined,
+        movieId,
         pexelsId,
         title,
         thumbnail,
@@ -80,31 +80,37 @@ class FavoriteController {
     }
   }
 
-  async removeFavorite(req: AuthRequest, res: Response): Promise<void> {
-    try {
-      const userId = this.getUserIdFromToken(req);
-      if (!userId) {
-        res.status(401).json({ message: "Token inválido o ausente" });
-        return;
-      }
-
-      const { movieId, pexelsId } = req.query;
-      const deleted = await FavoriteDAO.removeFavorite(
-        userId.toString(),
-        movieId as string,
-        pexelsId as string
-      );
-      if (!deleted) {
-        res.status(404).json({ message: "Favorito no encontrado" });
-        return;
-      }
-
-      res.status(200).json({ message: "Favorito eliminado correctamente" });
-    } catch (error) {
-      console.error("Error eliminando favorito:", error);
-      res.status(500).json({ message: "Error al eliminar el favorito" });
+ async removeFavorite(req: AuthRequest, res: Response): Promise<void> {
+  try {
+    const userId = this.getUserIdFromToken(req);
+    if (!userId) {
+      res.status(401).json({ message: "Token inválido o ausente" });
+      return;
     }
+
+    const { movieId, pexelsId } = req.query;
+    console.log("🟡 DELETE favorito recibido:", { userId, movieId, pexelsId });
+
+    const deleted = await FavoriteDAO.removeFavorite(
+      userId.toString(),
+      movieId as string,
+      pexelsId as string
+    );
+
+    console.log("🟢 Resultado de FavoriteDAO.removeFavorite:", deleted);
+
+    if (!deleted) {
+      res.status(404).json({ message: "Favorito no encontrado" });
+      return;
+    }
+
+    res.status(200).json({ message: "Favorito eliminado correctamente" });
+  } catch (error) {
+    console.error("❌ Error eliminando favorito:", error);
+    res.status(500).json({ message: "Error al eliminar el favorito" });
   }
+}
+
 
   async updateFavorite(req: AuthRequest, res: Response): Promise<void> {
     try {

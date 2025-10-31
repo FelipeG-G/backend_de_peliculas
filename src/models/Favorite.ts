@@ -2,7 +2,7 @@ import mongoose, { Schema, Document } from "mongoose";
 
 export interface IFavorite extends Document {
   userId: mongoose.Types.ObjectId;
-  movieId?: mongoose.Types.ObjectId;
+  movieId?: string; 
   pexelsId?: string;
   title: string;
   thumbnail?: string;
@@ -11,7 +11,7 @@ export interface IFavorite extends Document {
 
 const FavoriteSchema: Schema = new Schema<IFavorite>({
   userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
-  movieId: { type: Schema.Types.ObjectId, ref: "Movie" },
+  movieId: { type: String, index: true },
   pexelsId: { type: String, index: true }, // más rápido buscar por pexelsId
   title: { type: String, required: true },
   thumbnail: { type: String },
