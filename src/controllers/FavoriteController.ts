@@ -10,7 +10,7 @@ interface AuthRequest extends Request {
 
 /**
  * Extrae userId desde header Authorization Bearer <token>.
- * Devuelve null si token inválido/ausente.
+ * Devuelve null si token inválido o ausente.
  */
 function getUserIdFromToken(req: AuthRequest): mongoose.Types.ObjectId | null {
   const authHeader = req.headers.authorization;
@@ -18,9 +18,13 @@ function getUserIdFromToken(req: AuthRequest): mongoose.Types.ObjectId | null {
 
   const token = authHeader.split(" ")[1];
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as { id: string };
-    return new mongoose.Types.ObjectId(decoded.id);
-  } catch {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as { id?: string; userId?: string };
+    const realId = decoded.userId || decoded.id;
+    if (!realId) return null;
+
+    return new mongoose.Types.ObjectId(realId);
+  } catch (err) {
+    console.error("❌ Error verificando token:", err);
     return null;
   }
 }
@@ -30,12 +34,13 @@ const FavoriteController = {
   async addFavorite(req: AuthRequest, res: Response): Promise<void> {
     try {
       const userId = getUserIdFromToken(req);
-      if (!userId) { res.status(401).json({ message: "Token inválido o ausente" }); return; }
+      if (!userId) {
+        res.status(401).json({ message: "Token inválido o ausente" });
+        return;
+      }
 
-      // El front envía TODO el movie; usamos `id` como pexelsId
-      // body puede contener: id, title, image (thumbnail), etc.
-      const { id, title, image, thumbnail } = req.body;
-      const pexelsId = String(id ?? req.body.pexelsId ?? "").trim();
+      const { id, title, image, thumbnail, pexelsId: bodyPexelsId } = req.body;
+      const pexelsId = String(id ?? bodyPexelsId ?? "").trim();
       const thumb = thumbnail || image || "";
 
       if (!pexelsId || !title) {
@@ -57,10 +62,9 @@ const FavoriteController = {
       } as any);
 
       res.status(201).json(newFavorite);
-    } catch (error) {
+    } catch (error: any) {
       console.error("❌ Error agregando favorito:", error);
-      // si es un error de unique index, devolver 409
-      if ((error as any)?.code === 11000) {
+      if (error?.code === 11000) {
         res.status(409).json({ message: "Favorito duplicado" });
       } else {
         res.status(500).json({ message: "Error al agregar el favorito" });
@@ -72,13 +76,15 @@ const FavoriteController = {
   async getUserFavorites(req: AuthRequest, res: Response): Promise<void> {
     try {
       const userId = getUserIdFromToken(req);
-      if (!userId) { res.status(401).json({ message: "Token inválido o ausente" }); return; }
+      if (!userId) {
+        res.status(401).json({ message: "Token inválido o ausente" });
+        return;
+      }
 
       const favorites = await FavoriteDAO.getUserFavorites(userId.toString());
 
-      // Transformación para el front (el front espera un formato tipo movie)
       const transformed = favorites.map((fav) => ({
-        id: Number(fav.pexelsId) || fav.pexelsId, // si es numérico lo conviertes, sino string
+        id: Number(fav.pexelsId) || fav.pexelsId,
         title: fav.title,
         image: fav.thumbnail || "",
         genre: "Favoritos",
@@ -100,7 +106,10 @@ const FavoriteController = {
   async removeFavorite(req: AuthRequest, res: Response): Promise<void> {
     try {
       const userId = getUserIdFromToken(req);
-      if (!userId) { res.status(401).json({ message: "Token inválido o ausente" }); return; }
+      if (!userId) {
+        res.status(401).json({ message: "Token inválido o ausente" });
+        return;
+      }
 
       const { pexelsId } = req.params;
       const realPexelsId = String(pexelsId ?? "").trim();
@@ -111,7 +120,6 @@ const FavoriteController = {
       }
 
       const deleted = await FavoriteDAO.removeFavoriteByPexelsId(userId.toString(), realPexelsId);
-
       if (!deleted) {
         res.status(404).json({ message: "Favorito no encontrado" });
         return;
