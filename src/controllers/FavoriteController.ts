@@ -8,7 +8,6 @@ interface AuthRequest extends Request {
 }
 
 class FavoriteController {
-  // 🟩 Extrae el userId desde el token JWT
   private getUserIdFromToken(req: AuthRequest): mongoose.Types.ObjectId | null {
     const authHeader = req.headers.authorization;
     if (!authHeader?.startsWith("Bearer ")) return null;
@@ -22,6 +21,7 @@ class FavoriteController {
     }
   }
 
+  // 🟢 Agregar favorito
   async addFavorite(req: AuthRequest, res: Response): Promise<void> {
     try {
       const userId = this.getUserIdFromToken(req);
@@ -30,33 +30,28 @@ class FavoriteController {
         return;
       }
 
-      const { movieId, pexelsId, id, title, thumbnail, image } = req.body;
-      const realPexelsId = pexelsId || id;
-      const realThumbnail = thumbnail || image;
+      // El frontend manda { id, title, image }
+      const { id, title, image } = req.body;
+      const pexelsId = id; // ← id del frontend = pexelsId
 
-      if (!title || (!movieId && !realPexelsId)) {
+      if (!pexelsId || !title) {
         res.status(400).json({ message: "Faltan datos obligatorios" });
         return;
       }
 
-
-      const alreadyFav = await FavoriteDAO.isAlreadyFavorite(
-        userId.toString(),
-        movieId,
-        pexelsId
-      );
-      if (alreadyFav) {
+      const exists = await FavoriteDAO.isAlreadyFavorite(userId.toString(), pexelsId);
+      if (exists) {
         res.status(409).json({ message: "Este favorito ya existe" });
         return;
       }
 
       const newFavorite = await FavoriteDAO.addFavorite({
         userId,
-        movieId,
         pexelsId,
         title,
-        thumbnail,
+        thumbnail: image,
       });
+
       res.status(201).json(newFavorite);
     } catch (error) {
       console.error("Error agregando favorito:", error);
@@ -64,6 +59,7 @@ class FavoriteController {
     }
   }
 
+  // 🟢 Obtener favoritos del usuario
   async getUserFavorites(req: AuthRequest, res: Response): Promise<void> {
     try {
       const userId = this.getUserIdFromToken(req);
@@ -73,46 +69,27 @@ class FavoriteController {
       }
 
       const favorites = await FavoriteDAO.getUserFavorites(userId.toString());
-      res.status(200).json(favorites);
+      const transformed = favorites.map((fav) => ({
+        id: Number(fav.pexelsId),
+        title: fav.title,
+        image: fav.thumbnail,
+        genre: "Favoritos",
+        year: 2024,
+        duration: "N/A",
+        rating: 5.0,
+        videoUrl: "",
+        pexelsId: fav.pexelsId,
+      }));
+
+      res.status(200).json(transformed);
     } catch (error) {
       console.error("Error obteniendo favoritos:", error);
       res.status(500).json({ message: "Error al obtener los favoritos" });
     }
   }
 
- async removeFavorite(req: AuthRequest, res: Response): Promise<void> {
-  try {
-    const userId = this.getUserIdFromToken(req);
-    if (!userId) {
-      res.status(401).json({ message: "Token inválido o ausente" });
-      return;
-    }
-
-    const { movieId, pexelsId } = req.query;
-    console.log("🟡 DELETE favorito recibido:", { userId, movieId, pexelsId });
-
-    const deleted = await FavoriteDAO.removeFavorite(
-      userId.toString(),
-      movieId as string,
-      pexelsId as string
-    );
-
-    console.log("🟢 Resultado de FavoriteDAO.removeFavorite:", deleted);
-
-    if (!deleted) {
-      res.status(404).json({ message: "Favorito no encontrado" });
-      return;
-    }
-
-    res.status(200).json({ message: "Favorito eliminado correctamente" });
-  } catch (error) {
-    console.error("❌ Error eliminando favorito:", error);
-    res.status(500).json({ message: "Error al eliminar el favorito" });
-  }
-}
-
-
-  async updateFavorite(req: AuthRequest, res: Response): Promise<void> {
+  // 🟢 Eliminar favorito
+  async removeFavorite(req: AuthRequest, res: Response): Promise<void> {
     try {
       const userId = this.getUserIdFromToken(req);
       if (!userId) {
@@ -120,19 +97,25 @@ class FavoriteController {
         return;
       }
 
-      const { favoriteId } = req.params;
-      const data = req.body;
+      const { id, pexelsId } = req.query;
+      const realPexelsId = (pexelsId as string) || (id as string);
 
-      const updated = await FavoriteDAO.updateFavorite(favoriteId, data);
-      if (!updated) {
+      if (!realPexelsId) {
+        res.status(400).json({ message: "Falta el ID del favorito a eliminar" });
+        return;
+      }
+
+      const deleted = await FavoriteDAO.removeFavorite(userId.toString(), realPexelsId);
+
+      if (!deleted) {
         res.status(404).json({ message: "Favorito no encontrado" });
         return;
       }
 
-      res.status(200).json(updated);
+      res.status(200).json({ message: "Favorito eliminado correctamente" });
     } catch (error) {
-      console.error("Error actualizando favorito:", error);
-      res.status(500).json({ message: "Error al actualizar el favorito" });
+      console.error("Error eliminando favorito:", error);
+      res.status(500).json({ message: "Error al eliminar el favorito" });
     }
   }
 }

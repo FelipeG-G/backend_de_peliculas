@@ -2,8 +2,7 @@ import mongoose, { Schema, Document } from "mongoose";
 
 export interface IFavorite extends Document {
   userId: mongoose.Types.ObjectId;
-  movieId?: string; 
-  pexelsId?: string;
+  pexelsId: string;
   title: string;
   thumbnail?: string;
   createdAt: Date;
@@ -11,11 +10,13 @@ export interface IFavorite extends Document {
 
 const FavoriteSchema: Schema = new Schema<IFavorite>({
   userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
-  movieId: { type: String, index: true },
-  pexelsId: { type: String, index: true }, // más rápido buscar por pexelsId
+  pexelsId: { type: String, required: true, index: true },
   title: { type: String, required: true },
   thumbnail: { type: String },
   createdAt: { type: Date, default: Date.now },
 });
+
+// 🔒 Evita duplicados por usuario
+FavoriteSchema.index({ userId: 1, pexelsId: 1 }, { unique: true });
 
 export default mongoose.model<IFavorite>("Favorite", FavoriteSchema);

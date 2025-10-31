@@ -10,22 +10,12 @@ class FavoriteDAO {
     return await Favorite.find({ userId }).sort({ createdAt: -1 });
   }
 
-  async removeFavorite(userId: string, movieId?: string, pexelsId?: string): Promise<IFavorite | null> {
-    const query: any = { userId };
-    if (movieId) query.movieId = movieId;
-    if (pexelsId) query.pexelsId = pexelsId;
-    return await Favorite.findOneAndDelete(query);
+  async removeFavorite(userId: string, pexelsId: string): Promise<IFavorite | null> {
+    return await Favorite.findOneAndDelete({ userId, pexelsId });
   }
 
-  async updateFavorite(favoriteId: string, data: Partial<IFavorite>): Promise<IFavorite | null> {
-    return await Favorite.findByIdAndUpdate(favoriteId, data, { new: true });
-  }
-
-  async isAlreadyFavorite(userId: string, movieId?: string, pexelsId?: string): Promise<boolean> {
-    const query: any = { userId };
-    if (movieId) query.movieId = movieId;
-    if (pexelsId) query.pexelsId = pexelsId;
-    const exists = await Favorite.exists(query);
+  async isAlreadyFavorite(userId: string, pexelsId: string): Promise<boolean> {
+    const exists = await Favorite.exists({ userId, pexelsId });
     return !!exists;
   }
 }
