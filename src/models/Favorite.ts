@@ -1,3 +1,4 @@
+// src/models/Favorite.ts
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface IFavorite extends Document {
@@ -16,7 +17,7 @@ const FavoriteSchema: Schema = new Schema<IFavorite>({
   createdAt: { type: Date, default: Date.now },
 });
 
-// 🔒 Evita duplicados por usuario
+// evita duplicados por usuario
 FavoriteSchema.index({ userId: 1, pexelsId: 1 }, { unique: true });
 
 export default mongoose.model<IFavorite>("Favorite", FavoriteSchema);

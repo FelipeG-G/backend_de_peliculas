@@ -1,3 +1,4 @@
+// src/dao/FavoriteDAO.ts
 import Favorite, { IFavorite } from "../models/Favorite";
 
 class FavoriteDAO {
@@ -10,7 +11,7 @@ class FavoriteDAO {
     return await Favorite.find({ userId }).sort({ createdAt: -1 });
   }
 
-  async removeFavorite(userId: string, pexelsId: string): Promise<IFavorite | null> {
+  async removeFavoriteByPexelsId(userId: string, pexelsId: string): Promise<IFavorite | null> {
     return await Favorite.findOneAndDelete({ userId, pexelsId });
   }
 
