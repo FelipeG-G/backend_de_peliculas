@@ -13,7 +13,6 @@ const router = Router();
 //  Obtener todos los favoritos del usuario logueado
 router.get("/", (req, res) => FavoriteController.getUserFavorites(req, res));
 
-router.post("/", (req, res) => FavoriteController.addFavorite(req, res));
 
 //  Agregar un nuevo favorito
 router.post("/", (req, res) => FavoriteController.addFavorite(req, res));
