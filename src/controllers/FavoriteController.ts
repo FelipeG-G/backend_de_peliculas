@@ -30,11 +30,15 @@ class FavoriteController {
         return;
       }
 
-      const { movieId, pexelsId, title, thumbnail } = req.body;
-      if (!title || (!movieId && !pexelsId)) {
+      const { movieId, pexelsId, id, title, thumbnail, image } = req.body;
+      const realPexelsId = pexelsId || id;
+      const realThumbnail = thumbnail || image;
+
+      if (!title || (!movieId && !realPexelsId)) {
         res.status(400).json({ message: "Faltan datos obligatorios" });
         return;
       }
+
 
       const alreadyFav = await FavoriteDAO.isAlreadyFavorite(
         userId.toString(),
