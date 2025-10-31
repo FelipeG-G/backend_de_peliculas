@@ -16,7 +16,7 @@ router.get("/get", (req, res) => FavoriteController.getUserFavorites(req, res));
 router.post("/", (req, res) => FavoriteController.addFavorite(req, res));
 
 //  Agregar un nuevo favorito
-router.post("/add", (req, res) => FavoriteController.addFavorite(req, res));
+router.post("/", (req, res) => FavoriteController.addFavorite(req, res));
 
 //  Actualizar un favorito existente
 router.put("/:favoriteId", (req, res) => FavoriteController.updateFavorite(req, res));
