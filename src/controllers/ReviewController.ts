@@ -38,32 +38,36 @@ const ReviewController = {
         return res.status(401).json({ message: "Token inválido o ausente" });
 
       const { pexelsId, rating, comment, userName } = req.body;
+
+      // 🧠 Validación de campos requeridos
       if (!pexelsId || !comment) {
         return res.status(400).json({
           message: "Faltan datos obligatorios (pexelsId o comment)",
         });
       }
 
-      const existing = await ReviewDAO.getUserReview(
-        userId.toString(),
-        pexelsId
-      );
+      // Verificar si el usuario ya comentó esta película
+      const existing = await ReviewDAO.getUserReview(userId.toString(), pexelsId);
       if (existing) {
         return res
           .status(409)
           .json({ message: "Ya has dejado una reseña para esta película" });
       }
 
+      // ✅ Validar y normalizar el rating
+      const hasValidRating =
+        typeof rating === "number" && !isNaN(rating) && rating >= 0;
+
       const newReview = await ReviewDAO.addReview({
         userId,
         pexelsId,
         userName,
-        rating: rating ?? 0,
+        rating: hasValidRating ? rating : 0,
         comment,
-        hasRating: rating !== undefined,
+        hasRating: hasValidRating,
       } as any);
 
-      // 🔄 Actualizar promedio si tiene calificación
+      // 🔄 Actualizar promedio si la reseña tiene calificación válida
       if (newReview.hasRating) {
         await AverageDAO.updateAverageForMovie(pexelsId);
       }
