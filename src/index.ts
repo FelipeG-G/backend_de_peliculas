@@ -6,6 +6,7 @@ import authRoutes from "./routes/authRoutes"; // Rutas de autenticación
 import routes from "./routes/routes"; // Rutas generales de la API
 import userRoutes from "./routes/userRoutes"; // Asegúrate de que la ruta de usuarios sea correcta
 import favoriteRoutes from "./routes/favoriteRoutes"; // Asegúrate de que la ruta de usuarios sea correcta
+import reviewRoutes from "./routes/reviewRoutes"; 
 
 dotenv.config();  // Cargar las variables de entorno
 
@@ -45,6 +46,7 @@ app.use("/api/v1", routes);
 // Usar las rutas de usuario bajo /api/v1/users
 app.use("/api/v1/users", userRoutes);  // Aquí se importa correctamente `userRoutes`
 app.use("/api/v1/favorites", favoriteRoutes);
+app.use("/api/v1/reviews", reviewRoutes);
 
 /**
  * Health check endpoint.
