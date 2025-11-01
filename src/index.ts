@@ -7,6 +7,7 @@ import routes from "./routes/routes"; // Rutas generales de la API
 import userRoutes from "./routes/userRoutes"; // Asegúrate de que la ruta de usuarios sea correcta
 import favoriteRoutes from "./routes/favoriteRoutes"; // Asegúrate de que la ruta de usuarios sea correcta
 import reviewRoutes from "./routes/reviewRoutes"; 
+import averageRoutes from "./routes/averageRoutes";
 
 dotenv.config();  // Cargar las variables de entorno
 
@@ -47,6 +48,7 @@ app.use("/api/v1", routes);
 app.use("/api/v1/users", userRoutes);  // Aquí se importa correctamente `userRoutes`
 app.use("/api/v1/favorites", favoriteRoutes);
 app.use("/api/v1/reviews", reviewRoutes);
+app.use("/api/v1/average", averageRoutes);
 
 /**
  * Health check endpoint.
@@ -56,7 +58,7 @@ app.get("/", (req, res) => res.send("Server is running"));
 
 /**
  * Start server (only if executed directly)
- */
+*/
 if (require.main === module) {
   const PORT = process.env.PORT || 8080;
   app.listen(PORT, () => {

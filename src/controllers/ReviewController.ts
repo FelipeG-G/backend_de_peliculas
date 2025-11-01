@@ -2,12 +2,13 @@ import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import ReviewDAO from "../dao/ReviewDAO";
+import AverageDAO from "../dao/AverageDAO";
 
 interface AuthRequest extends Request {
   user?: { id: string };
 }
 
-// 🔍 Extrae el userId desde el token
+// 📌 Extrae el userId desde el token JWT
 function getUserIdFromToken(req: AuthRequest): mongoose.Types.ObjectId | null {
   const authHeader = req.headers.authorization;
   if (!authHeader?.startsWith("Bearer ")) return null;
@@ -18,6 +19,7 @@ function getUserIdFromToken(req: AuthRequest): mongoose.Types.ObjectId | null {
       token,
       process.env.JWT_SECRET as string
     ) as { id?: string; userId?: string };
+
     const realId = decoded.userId || decoded.id;
     if (!realId) return null;
     return new mongoose.Types.ObjectId(realId);
@@ -37,9 +39,9 @@ const ReviewController = {
 
       const { pexelsId, rating, comment, userName } = req.body;
       if (!pexelsId || !comment) {
-        return res
-          .status(400)
-          .json({ message: "Faltan datos obligatorios (pexelsId o comment)" });
+        return res.status(400).json({
+          message: "Faltan datos obligatorios (pexelsId o comment)",
+        });
       }
 
       const existing = await ReviewDAO.getUserReview(
@@ -61,6 +63,11 @@ const ReviewController = {
         hasRating: rating !== undefined,
       } as any);
 
+      // 🔄 Actualizar promedio si tiene calificación
+      if (newReview.hasRating) {
+        await AverageDAO.updateAverageForMovie(pexelsId);
+      }
+
       return res.status(201).json(newReview);
     } catch (error) {
       console.error("❌ Error al crear reseña:", error);
@@ -69,10 +76,7 @@ const ReviewController = {
   },
 
   // 📜 Obtener reseñas por película
-  async getReviewsByPexelsId(
-    req: AuthRequest,
-    res: Response
-  ): Promise<Response> {
+  async getReviewsByPexelsId(req: AuthRequest, res: Response): Promise<Response> {
     try {
       const { pexelsId } = req.params;
       if (!pexelsId)
@@ -86,7 +90,7 @@ const ReviewController = {
     }
   },
 
-  // ✏️ Actualizar reseña (por película + usuario)
+  // ✏️ Actualizar reseña
   async updateReview(req: AuthRequest, res: Response): Promise<Response> {
     try {
       const userId = getUserIdFromToken(req);
@@ -108,16 +112,20 @@ const ReviewController = {
           .json({ message: "Reseña no encontrada o no te pertenece" });
       }
 
-      return res
-        .status(200)
-        .json({ message: "Reseña actualizada correctamente", review: updated });
+      // 🔄 Recalcular promedio si cambió el rating
+      await AverageDAO.updateAverageForMovie(pexelsId);
+
+      return res.status(200).json({
+        message: "Reseña actualizada correctamente",
+        review: updated,
+      });
     } catch (error) {
       console.error("❌ Error al actualizar reseña:", error);
       return res.status(500).json({ message: "Error al actualizar la reseña" });
     }
   },
 
-  // ❌ Eliminar reseña (por película + usuario)
+  // ❌ Eliminar reseña
   async deleteReview(req: AuthRequest, res: Response): Promise<Response> {
     try {
       const userId = getUserIdFromToken(req);
@@ -125,6 +133,7 @@ const ReviewController = {
         return res.status(401).json({ message: "Token inválido o ausente" });
 
       const { pexelsId } = req.params;
+
       const deleted = await ReviewDAO.deleteReviewByUser(
         pexelsId,
         userId.toString()
@@ -134,6 +143,11 @@ const ReviewController = {
         return res
           .status(404)
           .json({ message: "Reseña no encontrada o no te pertenece" });
+      }
+
+      // 🔄 Recalcular promedio si la reseña tenía rating
+      if (deleted.hasRating) {
+        await AverageDAO.updateAverageForMovie(pexelsId);
       }
 
       return res.status(200).json({ message: "Reseña eliminada correctamente" });
