@@ -9,8 +9,17 @@ interface AuthRequest extends Request {
 }
 
 /**
- * Extrae userId desde header Authorization Bearer <token>.
- * Devuelve null si token inválido o ausente.
+ * @file FavoriteController.ts
+ * @description Controller responsible for handling CRUD operations related to user favorites.
+ * Includes functions to add, retrieve, and delete favorites, as well as validate JWT tokens.
+ */
+
+/**
+ * Extracts the user ID from the JWT token provided in the `Authorization` header.
+ * Returns `null` if the token is invalid or missing.
+ *
+ * @param {AuthRequest} req - HTTP request object.
+ * @returns {mongoose.Types.ObjectId | null} The user ID as an ObjectId or `null` if invalid.
  */
 function getUserIdFromToken(req: AuthRequest): mongoose.Types.ObjectId | null {
   const authHeader = req.headers.authorization;
@@ -24,18 +33,33 @@ function getUserIdFromToken(req: AuthRequest): mongoose.Types.ObjectId | null {
 
     return new mongoose.Types.ObjectId(realId);
   } catch (err) {
-    console.error("❌ Error verificando token:", err);
+    console.error("❌ Error verifying token:", err);
     return null;
   }
 }
 
+/**
+ * Favorites Controller.
+ * Contains the main methods to manage user favorite operations.
+ * 
+ * @namespace FavoriteController
+ */
 const FavoriteController = {
-  // POST /api/v1/favorites
+  /**
+   * Adds a new favorite for the authenticated user.
+   * 
+   * @async
+   * @function addFavorite
+   * @memberof FavoriteController
+   * @param {AuthRequest} req - HTTP request with JWT token and favorite data.
+   * @param {Response} res - HTTP response.
+   * @returns {Promise<void>} Sends a response with the created favorite or an error message.
+   */
   async addFavorite(req: AuthRequest, res: Response): Promise<void> {
     try {
       const userId = getUserIdFromToken(req);
       if (!userId) {
-        res.status(401).json({ message: "Token inválido o ausente" });
+        res.status(401).json({ message: "Invalid or missing token" });
         return;
       }
 
@@ -44,13 +68,13 @@ const FavoriteController = {
       const thumb = thumbnail || image || "";
 
       if (!pexelsId || !title) {
-        res.status(400).json({ message: "Faltan datos obligatorios (id/pexelsId o title)" });
+        res.status(400).json({ message: "Missing required fields (id/pexelsId or title)" });
         return;
       }
 
       const exists = await FavoriteDAO.isAlreadyFavorite(userId.toString(), pexelsId);
       if (exists) {
-        res.status(409).json({ message: "Este favorito ya existe" });
+        res.status(409).json({ message: "This favorite already exists" });
         return;
       }
 
@@ -63,21 +87,30 @@ const FavoriteController = {
 
       res.status(201).json(newFavorite);
     } catch (error: any) {
-      console.error("❌ Error agregando favorito:", error);
+      console.error("❌ Error adding favorite:", error);
       if (error?.code === 11000) {
-        res.status(409).json({ message: "Favorito duplicado" });
+        res.status(409).json({ message: "Duplicate favorite" });
       } else {
-        res.status(500).json({ message: "Error al agregar el favorito" });
+        res.status(500).json({ message: "Error adding favorite" });
       }
     }
   },
 
-  // GET /api/v1/favorites
+  /**
+   * Retrieves all favorites of the authenticated user.
+   * 
+   * @async
+   * @function getUserFavorites
+   * @memberof FavoriteController
+   * @param {AuthRequest} req - HTTP request with JWT token.
+   * @param {Response} res - HTTP response.
+   * @returns {Promise<void>} Sends an array of user favorites or an error.
+   */
   async getUserFavorites(req: AuthRequest, res: Response): Promise<void> {
     try {
       const userId = getUserIdFromToken(req);
       if (!userId) {
-        res.status(401).json({ message: "Token inválido o ausente" });
+        res.status(401).json({ message: "Invalid or missing token" });
         return;
       }
 
@@ -87,7 +120,7 @@ const FavoriteController = {
         id: Number(fav.pexelsId) || fav.pexelsId,
         title: fav.title,
         image: fav.thumbnail || "",
-        genre: "Favoritos",
+        genre: "Favorites",
         year: 2024,
         duration: "N/A",
         rating: 5.0,
@@ -97,17 +130,26 @@ const FavoriteController = {
 
       res.status(200).json(transformed);
     } catch (error) {
-      console.error("❌ Error obteniendo favoritos:", error);
-      res.status(500).json({ message: "Error al obtener los favoritos" });
+      console.error("❌ Error retrieving favorites:", error);
+      res.status(500).json({ message: "Error retrieving favorites" });
     }
   },
 
-  // DELETE /api/v1/favorites/:pexelsId
+  /**
+   * Deletes a favorite by its `pexelsId` for the authenticated user.
+   * 
+   * @async
+   * @function removeFavorite
+   * @memberof FavoriteController
+   * @param {AuthRequest} req - HTTP request with JWT token and `pexelsId` parameter.
+   * @param {Response} res - HTTP response.
+   * @returns {Promise<void>} Sends deletion confirmation or an error message.
+   */
   async removeFavorite(req: AuthRequest, res: Response): Promise<void> {
     try {
       const userId = getUserIdFromToken(req);
       if (!userId) {
-        res.status(401).json({ message: "Token inválido o ausente" });
+        res.status(401).json({ message: "Invalid or missing token" });
         return;
       }
 
@@ -115,20 +157,20 @@ const FavoriteController = {
       const realPexelsId = String(pexelsId ?? "").trim();
 
       if (!realPexelsId) {
-        res.status(400).json({ message: "Falta el ID del favorito a eliminar (pexelsId)" });
+        res.status(400).json({ message: "Missing favorite ID (pexelsId) to delete" });
         return;
       }
 
       const deleted = await FavoriteDAO.removeFavoriteByPexelsId(userId.toString(), realPexelsId);
       if (!deleted) {
-        res.status(404).json({ message: "Favorito no encontrado" });
+        res.status(404).json({ message: "Favorite not found" });
         return;
       }
 
-      res.status(200).json({ message: "Favorito eliminado correctamente" });
+      res.status(200).json({ message: "Favorite successfully deleted" });
     } catch (error) {
-      console.error("❌ Error eliminando favorito:", error);
-      res.status(500).json({ message: "Error al eliminar el favorito" });
+      console.error("❌ Error deleting favorite:", error);
+      res.status(500).json({ message: "Error deleting favorite" });
     }
   },
 };

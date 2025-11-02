@@ -1,0 +1,396 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> controllers/MovieController.ts</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-Server.html">Server</a></li><li><a href="module-api_routes_averageRoutes.html">api/routes/averageRoutes</a></li><li><a href="module-routes_userRoutes.html">routes/userRoutes</a></li></ul><h3>Namespaces</h3><ul><li><a href="AverageController.html">AverageController</a></li><li><a href="FavoriteController.html">FavoriteController</a></li><li><a href="ReviewController.html">ReviewController</a></li></ul><h3>Classes</h3><ul><li><a href="GlobalController_GlobalController.html">GlobalController</a></li><li><a href="GlobalDAO_GlobalDAO.html">GlobalDAO</a></li><li><a href="MovieController.html">MovieController</a></li><li><a href="PasswordController.html">PasswordController</a></li><li><a href="module.exports_module.exports.html">exports</a></li></ul><h3>Interfaces</h3><ul><li><a href="IAverage.html">IAverage</a></li><li><a href="IFavorite.html">IFavorite</a></li><li><a href="IMovie.html">IMovie</a></li><li><a href="IReview.html">IReview</a></li><li><a href="IUser.html">IUser</a></li><li><a href="IVideoFile.html">IVideoFile</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AverageSchema">AverageSchema</a></li><li><a href="global.html#FavoriteSchema">FavoriteSchema</a></li><li><a href="global.html#MovieSchema">MovieSchema</a></li><li><a href="global.html#ReviewSchema">ReviewSchema</a></li><li><a href="global.html#User">User</a></li><li><a href="global.html#VideoFileSchema">VideoFileSchema</a></li><li><a href="global.html#controllers/FavoriteController.ts">controllers/FavoriteController.ts</a></li><li><a href="global.html#controllers/ReviewController.ts">controllers/ReviewController.ts</a></li><li><a href="global.html#create">create</a></li><li><a href="global.html#delete">delete</a></li><li><a href="global.html#deleteProfile">deleteProfile</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getAll">getAll</a></li><li><a href="global.html#getAverageByMovie">getAverageByMovie</a></li><li><a href="global.html#getMoviesByGenre">getMoviesByGenre</a></li><li><a href="global.html#getProfile">getProfile</a></li><li><a href="global.html#getUserIdFromToken">getUserIdFromToken</a></li><li><a href="global.html#globalController">globalController</a></li><li><a href="global.html#importMovieFromPexels">importMovieFromPexels</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#read">read</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#requestPasswordReset">requestPasswordReset</a></li><li><a href="global.html#resetPassword">resetPassword</a></li><li><a href="global.html#searchMovies">searchMovies</a></li><li><a href="global.html#searchVideos">searchVideos</a></li><li><a href="global.html#sendResetEmail">sendResetEmail</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#updateAverageForMovie">updateAverageForMovie</a></li><li><a href="global.html#updateProfile">updateProfile</a></li><li><a href="global.html#userSchema">userSchema</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>controllers/MovieController.ts</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file MovieController.ts
+ * @description Controller responsible for managing all CRUD operations 
+ * related to movies within the system, including integration with the Pexels API.
+ * 
+ * @module Controllers/MovieController
+ */
+
+import { Request, Response } from "express";
+import GlobalController from "./GlobalController";
+import MovieDAO from "../dao/MovieDAO";
+import { IMovie } from "../models/Movie";
+import { searchVideos } from "../services/pexelsService";
+
+/**
+ * @class MovieController
+ * @extends GlobalController&lt;IMovie>
+ * @classdesc Specialized controller for managing movies. 
+ * Implements CRUD operations, searches by genre or title, 
+ * and data import from Pexels.
+ */
+class MovieController extends GlobalController&lt;IMovie> {
+  constructor() {
+    super(MovieDAO);
+  }
+
+  /**
+   * @async
+   * @method create
+   * @description Creates a new movie in the database.
+   * 
+   * @param {Request} req - Request object containing movie data.
+   * @param {Response} res - Express response object.
+   * 
+   * @returns {Promise&lt;void>} Created movie or error message.
+   * 
+   * @example
+   * // POST /api/v1/movies
+   * {
+   *   "title": "Inception",
+   *   "genre": "Science Fiction",
+   *   "releaseDate": "2010-07-16"
+   * }
+   */
+  async create(req: Request, res: Response): Promise&lt;void> {
+    try {
+      const data: Partial&lt;IMovie> = req.body;
+      if (!data.title || !data.genre || !data.releaseDate) {
+        res.status(400).json({ message: "Missing required fields" });
+        return;
+      }
+
+      const newMovie = await MovieDAO.create(data);
+      res.status(201).json(newMovie);
+    } catch (error) {
+      console.error("Error creating movie:", error);
+      res.status(500).json({ message: "Error creating movie" });
+    }
+  }
+
+  /**
+   * @async
+   * @method getAll
+   * @description Retrieves all stored movies.
+   * 
+   * @param {Request} req - HTTP request.
+   * @param {Response} res - HTTP response.
+   * 
+   * @returns {Promise&lt;void>} List of movies or error message.
+   * 
+   * @example
+   * // GET /api/v1/movies
+   */
+  async getAll(req: Request, res: Response): Promise&lt;void> {
+    try {
+      const movies = await MovieDAO.getAll();
+      res.status(200).json(movies);
+    } catch (error) {
+      console.error("Error retrieving movies:", error);
+      res.status(500).json({ message: "Error retrieving movies" });
+    }
+  }
+
+  /**
+   * @async
+   * @method read
+   * @description Retrieves a specific movie by its ID.
+   * 
+   * @param {Request} req - Contains the `id` parameter of the movie.
+   * @param {Response} res - Express response object.
+   * 
+   * @returns {Promise&lt;void>} Found movie or error message.
+   * 
+   * @example
+   * // GET /api/v1/movies/:id
+   */
+  async read(req: Request, res: Response): Promise&lt;void> {
+    try {
+      const { id } = req.params;
+      const movie = await MovieDAO.read(id);
+      if (!movie) {
+        res.status(404).json({ message: "Movie not found" });
+        return;
+      }
+      res.status(200).json(movie);
+    } catch (error) {
+      console.error("Error retrieving movie:", error);
+      res.status(500).json({ message: "Error retrieving movie" });
+    }
+  }
+
+  /**
+   * @async
+   * @method update
+   * @description Updates an existing movie’s information.
+   * 
+   * @param {Request} req - HTTP request containing `id` and fields to update.
+   * @param {Response} res - HTTP response.
+   * 
+   * @returns {Promise&lt;void>} Updated movie or not found error.
+   * 
+   * @example
+   * // PUT /api/v1/movies/:id
+   * {
+   *   "title": "New Title"
+   * }
+   */
+  async update(req: Request, res: Response): Promise&lt;void> {
+    try {
+      const { id } = req.params;
+      const data: Partial&lt;IMovie> = req.body;
+      const updated = await MovieDAO.update(id, data);
+
+      if (!updated) {
+        res.status(404).json({ message: "Movie not found" });
+        return;
+      }
+
+      res.status(200).json(updated);
+    } catch (error) {
+      console.error("Error updating movie:", error);
+      res.status(500).json({ message: "Error updating movie" });
+    }
+  }
+
+  /**
+   * @async
+   * @method delete
+   * @description Deletes a movie from the database.
+   * 
+   * @param {Request} req - Request containing the `id` parameter.
+   * @param {Response} res - HTTP response.
+   * 
+   * @returns {Promise&lt;void>} Confirmation message or error.
+   * 
+   * @example
+   * // DELETE /api/v1/movies/:id
+   */
+  async delete(req: Request, res: Response): Promise&lt;void> {
+    try {
+      const { id } = req.params;
+      const deleted = await MovieDAO.delete(id);
+      if (!deleted) {
+        res.status(404).json({ message: "Movie not found" });
+        return;
+      }
+
+      res.status(200).json({ message: "Movie successfully deleted" });
+    } catch (error) {
+      console.error("Error deleting movie:", error);
+      res.status(500).json({ message: "Error deleting movie" });
+    }
+  }
+
+  /**
+   * @async
+   * @method getMoviesByGenre
+   * @description Retrieves all movies belonging to a specific genre.
+   * 
+   * @param {Request} req - Contains the `genre` parameter.
+   * @param {Response} res - Express response object.
+   * 
+   * @returns {Promise&lt;void>} List of movies filtered by genre.
+   * 
+   * @example
+   * // GET /api/v1/movies/genre/:genre
+   */
+  async getMoviesByGenre(req: Request, res: Response): Promise&lt;void> {
+    try {
+      const { genre } = req.params;
+      const movies = await MovieDAO.findByGenre(genre);
+      res.status(200).json(movies);
+    } catch (error) {
+      console.error("Error retrieving movies by genre:", error);
+      res.status(500).json({ message: "Error retrieving movies" });
+    }
+  }
+
+  /**
+   * @async
+   * @method searchMovies
+   * @description Searches for movies whose titles contain a specific text.
+   * 
+   * @param {Request} req - Contains the query parameter `q` (search term).
+   * @param {Response} res - Express response object.
+   * 
+   * @returns {Promise&lt;void>} List of matching movies.
+   * 
+   * @example
+   * // GET /api/v1/movies/search?q=batman
+   */
+  async searchMovies(req: Request, res: Response): Promise&lt;void> {
+    try {
+      const { q } = req.query;
+      if (!q || typeof q !== "string") {
+        res.status(400).json({ message: "A search term must be provided" });
+        return;
+      }
+
+      const movies = await MovieDAO.searchByTitle(q);
+      res.status(200).json(movies);
+    } catch (error) {
+      console.error("Error searching movies:", error);
+      res.status(500).json({ message: "Error searching movies" });
+    }
+  }
+
+  /**
+   * @async
+   * @method importMovieFromPexels
+   * @description Searches for videos on Pexels by a given term and imports them as movies.
+   * 
+   * @param {Request} req - Contains the `query` field in the request body.
+   * @param {Response} res - Express response object.
+   * 
+   * @returns {Promise&lt;void>} Newly imported movie or error message.
+   * 
+   * @example
+   * // POST /api/v1/movies/import
+   * {
+   *   "query": "nature"
+   * }
+   */
+  async importMovieFromPexels(req: Request, res: Response): Promise&lt;void> {
+    try {
+      const { query } = req.body;
+      if (!query) {
+        res.status(400).json({ message: "A search term for Pexels must be provided" });
+        return;
+      }
+
+      const videos = await searchVideos(query, 1);
+      if (!videos.length) {
+        res.status(404).json({ message: "No videos found on Pexels" });
+        return;
+      }
+
+      const video = videos[0];
+      const newMovie = await MovieDAO.importFromPexels({
+        title: query,
+        genre: "Unknown",
+        releaseDate: new Date(),
+        image: video.image,
+        url: video.url,
+        videoFiles: video.videoFiles,
+        duration: video.duration,
+        user: video.user,
+        source: "pexels",
+      });
+
+      res.status(201).json(newMovie);
+    } catch (error) {
+      console.error("Error importing movie from Pexels:", error);
+      res.status(500).json({ message: "Error importing movie from Pexels" });
+    }
+  }
+}
+
+export default new MovieController();
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

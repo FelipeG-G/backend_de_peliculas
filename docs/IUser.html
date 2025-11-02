@@ -5,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> exports</title>
+  <title> IUser</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -66,15 +66,15 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-api_routes_movieRoutes.html">api/routes/movieRoutes</a></li><li><a href="module-routes_userRoutes.html">routes/userRoutes</a></li></ul><h3>Classes</h3><ul><li><a href="PasswordController.html">PasswordController</a></li><li><a href="module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#create">create</a></li><li><a href="global.html#delete">delete</a></li><li><a href="global.html#getAll">getAll</a></li><li><a href="global.html#read">read</a></li><li><a href="global.html#sendResetEmail">sendResetEmail</a></li><li><a href="global.html#update">update</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-Server.html">Server</a></li><li><a href="module-api_routes_averageRoutes.html">api/routes/averageRoutes</a></li><li><a href="module-routes_userRoutes.html">routes/userRoutes</a></li></ul><h3>Namespaces</h3><ul><li><a href="AverageController.html">AverageController</a></li><li><a href="FavoriteController.html">FavoriteController</a></li><li><a href="ReviewController.html">ReviewController</a></li></ul><h3>Classes</h3><ul><li><a href="GlobalController_GlobalController.html">GlobalController</a></li><li><a href="GlobalDAO_GlobalDAO.html">GlobalDAO</a></li><li><a href="MovieController.html">MovieController</a></li><li><a href="PasswordController.html">PasswordController</a></li><li><a href="module.exports_module.exports.html">exports</a></li></ul><h3>Interfaces</h3><ul><li><a href="IAverage.html">IAverage</a></li><li><a href="IFavorite.html">IFavorite</a></li><li><a href="IMovie.html">IMovie</a></li><li><a href="IReview.html">IReview</a></li><li><a href="IUser.html">IUser</a></li><li><a href="IVideoFile.html">IVideoFile</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AverageSchema">AverageSchema</a></li><li><a href="global.html#FavoriteSchema">FavoriteSchema</a></li><li><a href="global.html#MovieSchema">MovieSchema</a></li><li><a href="global.html#ReviewSchema">ReviewSchema</a></li><li><a href="global.html#User">User</a></li><li><a href="global.html#VideoFileSchema">VideoFileSchema</a></li><li><a href="global.html#controllers/FavoriteController.ts">controllers/FavoriteController.ts</a></li><li><a href="global.html#controllers/ReviewController.ts">controllers/ReviewController.ts</a></li><li><a href="global.html#create">create</a></li><li><a href="global.html#delete">delete</a></li><li><a href="global.html#deleteProfile">deleteProfile</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getAll">getAll</a></li><li><a href="global.html#getAverageByMovie">getAverageByMovie</a></li><li><a href="global.html#getMoviesByGenre">getMoviesByGenre</a></li><li><a href="global.html#getProfile">getProfile</a></li><li><a href="global.html#getUserIdFromToken">getUserIdFromToken</a></li><li><a href="global.html#globalController">globalController</a></li><li><a href="global.html#importMovieFromPexels">importMovieFromPexels</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#read">read</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#requestPasswordReset">requestPasswordReset</a></li><li><a href="global.html#resetPassword">resetPassword</a></li><li><a href="global.html#searchMovies">searchMovies</a></li><li><a href="global.html#searchVideos">searchVideos</a></li><li><a href="global.html#sendResetEmail">sendResetEmail</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#updateAverageForMovie">updateAverageForMovie</a></li><li><a href="global.html#updateProfile">updateProfile</a></li><li><a href="global.html#userSchema">userSchema</a></li></ul></div>
                 
             </nav>
         </div>
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Class</p>
-                    <h1>exports</h1>
+                    <p>Interface</p>
+                    <h1>IUser</h1>
                 </header>
                 
 
@@ -85,9 +85,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>exports<span class="signature">()</span><span class="type-signature"></span></h2>
-        
-            <div class="class-description"><p>Controlador genérico que proporciona operaciones CRUD comunes.</p></div>
+        <h2>IUser</h2>
         
     
 </header>
@@ -96,40 +94,11 @@
     <div class="container-overview">
     
         
-            <div class='vertical-section'>
-                <div class="members">
-                    <div class="member">
-                        <div class=name>
-                            <span class="tag">Constructor</span>
-                        </div>
-                        
-
-
-    
-    <h4 class="name" id="exports">
-        <a class="href-link" href="#exports">#</a>
+            <div class="description"><p>Represents the User entity schema.
+Includes personal information, authentication details, and password reset tokens.</p></div>
         
-        <span class="code-name">
-            
-                new exports<span class="signature">()</span><span class="type-signature"></span>
-            
-        </span>
-    </h4>
-    
 
-    
-    
-
-
-
-
-
-
-
-
-
-
-
+        
 
 
 <dl class="details">
@@ -165,189 +134,15 @@
 
     
         <p class="tag-source">
-            <a href="controllers_GlobalController.ts.html" class="button">View Source</a>
+            <a href="models_User.ts.html" class="button">View Source</a>
             <span>
-                <a href="controllers_GlobalController.ts.html">controllers/GlobalController.ts</a>, <a href="controllers_GlobalController.ts.html#line5">line 5</a>
+                <a href="models_User.ts.html">models/User.ts</a>, <a href="models_User.ts.html#line29">line 29</a>
             </span>
         </p>
     
 </dl>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    </div>
-                </div>
-            </div>
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
-
-
-
-
-
-
-
-<section>
-
-<header>
-    
-        <h2><span class="attribs"><span class="type-signature"></span></span>exports<span class="signature">()</span><span class="type-signature"></span></h2>
-        
-            <div class="class-description"><p>Clase genérica GlobalDAO<T></p>
-<p>Proporciona operaciones CRUD reutilizables para cualquier modelo de Mongoose.
-Se puede extender en DAOs específicos para cada entidad (UserDAO, MovieDAO, etc.).</p></div>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class='vertical-section'>
-                <div class="members">
-                    <div class="member">
-                        <div class=name>
-                            <span class="tag">Constructor</span>
-                        </div>
-                        
-
-
-    
-    <h4 class="name" id="exports">
-        <a class="href-link" href="#exports">#</a>
-        
-        <span class="code-name">
-            
-                new exports<span class="signature">()</span><span class="type-signature"></span>
-            
-        </span>
-    </h4>
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="dao_GlobalDAO.ts.html" class="button">View Source</a>
-            <span>
-                <a href="dao_GlobalDAO.ts.html">dao/GlobalDAO.ts</a>, <a href="dao_GlobalDAO.ts.html#line8">line 8</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    </div>
-                </div>
-            </div>
         
     
     </div>

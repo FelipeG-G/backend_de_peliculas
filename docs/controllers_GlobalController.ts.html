@@ -68,7 +68,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-api_routes_movieRoutes.html">api/routes/movieRoutes</a></li><li><a href="module-routes_userRoutes.html">routes/userRoutes</a></li></ul><h3>Classes</h3><ul><li><a href="PasswordController.html">PasswordController</a></li><li><a href="module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#create">create</a></li><li><a href="global.html#delete">delete</a></li><li><a href="global.html#getAll">getAll</a></li><li><a href="global.html#read">read</a></li><li><a href="global.html#sendResetEmail">sendResetEmail</a></li><li><a href="global.html#update">update</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-Server.html">Server</a></li><li><a href="module-api_routes_averageRoutes.html">api/routes/averageRoutes</a></li><li><a href="module-routes_userRoutes.html">routes/userRoutes</a></li></ul><h3>Namespaces</h3><ul><li><a href="AverageController.html">AverageController</a></li><li><a href="FavoriteController.html">FavoriteController</a></li><li><a href="ReviewController.html">ReviewController</a></li></ul><h3>Classes</h3><ul><li><a href="GlobalController_GlobalController.html">GlobalController</a></li><li><a href="GlobalDAO_GlobalDAO.html">GlobalDAO</a></li><li><a href="MovieController.html">MovieController</a></li><li><a href="PasswordController.html">PasswordController</a></li><li><a href="module.exports_module.exports.html">exports</a></li></ul><h3>Interfaces</h3><ul><li><a href="IAverage.html">IAverage</a></li><li><a href="IFavorite.html">IFavorite</a></li><li><a href="IMovie.html">IMovie</a></li><li><a href="IReview.html">IReview</a></li><li><a href="IUser.html">IUser</a></li><li><a href="IVideoFile.html">IVideoFile</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AverageSchema">AverageSchema</a></li><li><a href="global.html#FavoriteSchema">FavoriteSchema</a></li><li><a href="global.html#MovieSchema">MovieSchema</a></li><li><a href="global.html#ReviewSchema">ReviewSchema</a></li><li><a href="global.html#User">User</a></li><li><a href="global.html#VideoFileSchema">VideoFileSchema</a></li><li><a href="global.html#controllers/FavoriteController.ts">controllers/FavoriteController.ts</a></li><li><a href="global.html#controllers/ReviewController.ts">controllers/ReviewController.ts</a></li><li><a href="global.html#create">create</a></li><li><a href="global.html#delete">delete</a></li><li><a href="global.html#deleteProfile">deleteProfile</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getAll">getAll</a></li><li><a href="global.html#getAverageByMovie">getAverageByMovie</a></li><li><a href="global.html#getMoviesByGenre">getMoviesByGenre</a></li><li><a href="global.html#getProfile">getProfile</a></li><li><a href="global.html#getUserIdFromToken">getUserIdFromToken</a></li><li><a href="global.html#globalController">globalController</a></li><li><a href="global.html#importMovieFromPexels">importMovieFromPexels</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#read">read</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#requestPasswordReset">requestPasswordReset</a></li><li><a href="global.html#resetPassword">resetPassword</a></li><li><a href="global.html#searchMovies">searchMovies</a></li><li><a href="global.html#searchVideos">searchVideos</a></li><li><a href="global.html#sendResetEmail">sendResetEmail</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#updateAverageForMovie">updateAverageForMovie</a></li><li><a href="global.html#updateProfile">updateProfile</a></li><li><a href="global.html#userSchema">userSchema</a></li></ul></div>
                 
             </nav>
         </div>
@@ -88,17 +88,32 @@
             <pre class="prettyprint source linenums"><code>import { Request, Response } from "express";
 
 /**
- * Controlador genérico que proporciona operaciones CRUD comunes.
+ * @file GlobalController.ts
+ * @description Generic controller that provides reusable CRUD operations 
+ * (Create, Read, Update, Delete) for any entity in the system. 
+ * It relies on a DAO object that implements the corresponding 
+ * data access operations.
+ *
+ * @template T Generic type representing the entity managed by the controller.
  */
 export default class GlobalController&lt;T> {
   private dao: any;
 
+  /**
+   * Creates a new instance of the global controller.
+   * @param {any} dao - Data Access Object (DAO) that implements CRUD methods.
+   */
   constructor(dao: any) {
     this.dao = dao;
   }
 
   /**
-   * Crear un nuevo documento en la base de datos.
+   * Creates a new document in the database.
+   *
+   * @async
+   * @param {Request} req - HTTP request object containing data to create in `req.body`.
+   * @param {Response} res - HTTP response object used to return the result.
+   * @returns {Promise&lt;void>} Sends a response with the created document or an error.
    */
   async create(req: Request, res: Response): Promise&lt;void> {
     try {
@@ -110,7 +125,12 @@ export default class GlobalController&lt;T> {
   }
 
   /**
-   * Recuperar un documento por su ID.
+   * Retrieves a document by its ID.
+   *
+   * @async
+   * @param {Request} req - HTTP request object containing the ID in `req.params.id`.
+   * @param {Response} res - HTTP response object.
+   * @returns {Promise&lt;void>} Sends the found document or a 404 error if not found.
    */
   async read(req: Request, res: Response): Promise&lt;void> {
     try {
@@ -122,7 +142,13 @@ export default class GlobalController&lt;T> {
   }
 
   /**
-   * Actualizar un documento por ID.
+   * Updates a document by its ID.
+   *
+   * @async
+   * @param {Request} req - HTTP request object containing the ID in `req.params.id` 
+   * and the updated data in `req.body`.
+   * @param {Response} res - HTTP response object.
+   * @returns {Promise&lt;void>} Sends the updated document or an error.
    */
   async update(req: Request, res: Response): Promise&lt;void> {
     try {
@@ -134,7 +160,12 @@ export default class GlobalController&lt;T> {
   }
 
   /**
-   * Eliminar un documento por ID.
+   * Deletes a document by its ID.
+   *
+   * @async
+   * @param {Request} req - HTTP request object containing the ID in `req.params.id`.
+   * @param {Response} res - HTTP response object.
+   * @returns {Promise&lt;void>} Sends the deleted document or a 404 error if not found.
    */
   async delete(req: Request, res: Response): Promise&lt;void> {
     try {
@@ -146,7 +177,12 @@ export default class GlobalController&lt;T> {
   }
 
   /**
-   * Recuperar todos los documentos (opcionalmente filtrados por consulta).
+   * Retrieves all stored documents (may include filters via query parameters).
+   *
+   * @async
+   * @param {Request} req - HTTP request object, possibly containing filters in `req.query`.
+   * @param {Response} res - HTTP response object.
+   * @returns {Promise&lt;void>} Sends a list of documents or an error.
    */
   async getAll(req: Request, res: Response): Promise&lt;void> {
     try {

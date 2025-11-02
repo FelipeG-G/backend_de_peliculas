@@ -66,7 +66,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-api_routes_movieRoutes.html">api/routes/movieRoutes</a></li><li><a href="module-routes_userRoutes.html">routes/userRoutes</a></li></ul><h3>Classes</h3><ul><li><a href="PasswordController.html">PasswordController</a></li><li><a href="module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#create">create</a></li><li><a href="global.html#delete">delete</a></li><li><a href="global.html#getAll">getAll</a></li><li><a href="global.html#read">read</a></li><li><a href="global.html#sendResetEmail">sendResetEmail</a></li><li><a href="global.html#update">update</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-Server.html">Server</a></li><li><a href="module-api_routes_averageRoutes.html">api/routes/averageRoutes</a></li><li><a href="module-routes_userRoutes.html">routes/userRoutes</a></li></ul><h3>Namespaces</h3><ul><li><a href="AverageController.html">AverageController</a></li><li><a href="FavoriteController.html">FavoriteController</a></li><li><a href="ReviewController.html">ReviewController</a></li></ul><h3>Classes</h3><ul><li><a href="GlobalController_GlobalController.html">GlobalController</a></li><li><a href="GlobalDAO_GlobalDAO.html">GlobalDAO</a></li><li><a href="MovieController.html">MovieController</a></li><li><a href="PasswordController.html">PasswordController</a></li><li><a href="module.exports_module.exports.html">exports</a></li></ul><h3>Interfaces</h3><ul><li><a href="IAverage.html">IAverage</a></li><li><a href="IFavorite.html">IFavorite</a></li><li><a href="IMovie.html">IMovie</a></li><li><a href="IReview.html">IReview</a></li><li><a href="IUser.html">IUser</a></li><li><a href="IVideoFile.html">IVideoFile</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AverageSchema">AverageSchema</a></li><li><a href="global.html#FavoriteSchema">FavoriteSchema</a></li><li><a href="global.html#MovieSchema">MovieSchema</a></li><li><a href="global.html#ReviewSchema">ReviewSchema</a></li><li><a href="global.html#User">User</a></li><li><a href="global.html#VideoFileSchema">VideoFileSchema</a></li><li><a href="global.html#controllers/FavoriteController.ts">controllers/FavoriteController.ts</a></li><li><a href="global.html#controllers/ReviewController.ts">controllers/ReviewController.ts</a></li><li><a href="global.html#create">create</a></li><li><a href="global.html#delete">delete</a></li><li><a href="global.html#deleteProfile">deleteProfile</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getAll">getAll</a></li><li><a href="global.html#getAverageByMovie">getAverageByMovie</a></li><li><a href="global.html#getMoviesByGenre">getMoviesByGenre</a></li><li><a href="global.html#getProfile">getProfile</a></li><li><a href="global.html#getUserIdFromToken">getUserIdFromToken</a></li><li><a href="global.html#globalController">globalController</a></li><li><a href="global.html#importMovieFromPexels">importMovieFromPexels</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#read">read</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#requestPasswordReset">requestPasswordReset</a></li><li><a href="global.html#resetPassword">resetPassword</a></li><li><a href="global.html#searchMovies">searchMovies</a></li><li><a href="global.html#searchVideos">searchVideos</a></li><li><a href="global.html#sendResetEmail">sendResetEmail</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#updateAverageForMovie">updateAverageForMovie</a></li><li><a href="global.html#updateProfile">updateProfile</a></li><li><a href="global.html#userSchema">userSchema</a></li></ul></div>
                 
             </nav>
         </div>
@@ -100,6 +100,1057 @@
 
 
 
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>controllers/AverageController.ts</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Controller responsible for retrieving the average rating
+for a specific movie based on its <code>pexelsId</code>.
+This controller interacts with <code>AverageDAO</code> to access database data.</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="controllers_AverageController.ts.html" class="button">View Source</a>
+            <span>
+                <a href="controllers_AverageController.ts.html">controllers/AverageController.ts</a>, <a href="controllers_AverageController.ts.html#line3">line 3</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+        
+    
+    </div>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>controllers/FavoriteController.ts</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Controller responsible for handling CRUD operations related to user favorites.
+Includes functions to add, retrieve, and delete favorites, as well as validate JWT tokens.</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="controllers_FavoriteController.ts.html" class="button">View Source</a>
+            <span>
+                <a href="controllers_FavoriteController.ts.html">controllers/FavoriteController.ts</a>, <a href="controllers_FavoriteController.ts.html#line5">line 5</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+        
+    
+    </div>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>controllers/GlobalController.ts</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Generic controller that provides reusable CRUD operations
+(Create, Read, Update, Delete) for any entity in the system.
+It relies on a DAO object that implements the corresponding
+data access operations.</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="controllers_GlobalController.ts.html" class="button">View Source</a>
+            <span>
+                <a href="controllers_GlobalController.ts.html">controllers/GlobalController.ts</a>, <a href="controllers_GlobalController.ts.html#line2">line 2</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+        
+    
+    </div>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>controllers/ReviewController.ts</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Controller responsible for managing movie reviews.
+Provides functionality to create, retrieve, update, and delete reviews
+associated with authenticated users. It also updates movie rating averages
+through the <code>AverageDAO</code>.</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="controllers_ReviewController.ts.html" class="button">View Source</a>
+            <span>
+                <a href="controllers_ReviewController.ts.html">controllers/ReviewController.ts</a>, <a href="controllers_ReviewController.ts.html#line6">line 6</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+        
+    
+    </div>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>dao/AverageDAO.ts</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Data Access Object (DAO) para gestionar los promedios de calificación (ratings)
+asociados a cada película. Calcula y mantiene actualizada la información
+a partir de las reseñas en la colección <code>Review</code>.</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="dao_AverageDAO.ts.html" class="button">View Source</a>
+            <span>
+                <a href="dao_AverageDAO.ts.html">dao/AverageDAO.ts</a>, <a href="dao_AverageDAO.ts.html#line5">line 5</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+        
+    
+    </div>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>dao/FavoriteDAO.ts</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Data Access Object (DAO) for managing user favorites.
+Provides CRUD-like operations and specific queries for the favorites feature.</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="dao_FavoriteDAO.ts.html" class="button">View Source</a>
+            <span>
+                <a href="dao_FavoriteDAO.ts.html">dao/FavoriteDAO.ts</a>, <a href="dao_FavoriteDAO.ts.html#line4">line 4</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+        
+    
+    </div>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>dao/GlobalDAO.ts</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Generic Data Access Object (DAO) class that provides reusable CRUD operations
+for any Mongoose model. It can be extended in specific DAOs for each entity (e.g., UserDAO, MovieDAO, etc.).</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="dao_GlobalDAO.ts.html" class="button">View Source</a>
+            <span>
+                <a href="dao_GlobalDAO.ts.html">dao/GlobalDAO.ts</a>, <a href="dao_GlobalDAO.ts.html#line2">line 2</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+        
+    
+    </div>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>dao/MovieDAO.ts</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Data Access Object (DAO) responsible for handling database operations related to movies.
+Provides methods for creating, reading, updating, deleting, and querying movie records.</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="dao_MovieDAO.ts.html" class="button">View Source</a>
+            <span>
+                <a href="dao_MovieDAO.ts.html">dao/MovieDAO.ts</a>, <a href="dao_MovieDAO.ts.html#line3">line 3</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+        
+    
+    </div>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>dao/ReviewDAO.ts</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Data Access Object (DAO) responsible for managing review-related database operations.
+Provides methods for creating, retrieving, updating, and deleting reviews from the database.</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="dao_ReviewDAO.ts.html" class="button">View Source</a>
+            <span>
+                <a href="dao_ReviewDAO.ts.html">dao/ReviewDAO.ts</a>, <a href="dao_ReviewDAO.ts.html#line3">line 3</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+        
+    
+    </div>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>dao/UserDAO.ts</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Data Access Object (DAO) responsible for handling user-related database operations.
+Extends the generic <code>GlobalDAO</code> to inherit standard CRUD functionality and adds custom user queries.</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="dao_UserDAO.ts.html" class="button">View Source</a>
+            <span>
+                <a href="dao_UserDAO.ts.html">dao/UserDAO.ts</a>, <a href="dao_UserDAO.ts.html#line5">line 5</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+        
+    
+    </div>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>routes/reviewRoutes.ts</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Defines all routes related to movie reviews (CRUD operations).
+Each route calls the corresponding method in the <code>ReviewController</code>.</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="routes_reviewRoutes.ts.html" class="button">View Source</a>
+            <span>
+                <a href="routes_reviewRoutes.ts.html">routes/reviewRoutes.ts</a>, <a href="routes_reviewRoutes.ts.html#line6">line 6</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+        
+    
+    </div>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

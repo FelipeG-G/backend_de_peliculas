@@ -1,16 +1,39 @@
 // src/routes/favoriteRoutes.ts
-import { Router } from "express";
+import { Router, Request, Response } from "express";
 import FavoriteController from "../controllers/FavoriteController";
 
 const router = Router();
 
-// Obtener favoritos
-router.get("/", (req, res) => FavoriteController.getUserFavorites(req, res));
+/**
+ *  Favorite Routes
+ *
+ * Gestiona los favoritos de los usuarios (agregar, obtener y eliminar películas favoritas).
+ */
 
-// Agregar favorito
-router.post("/", (req, res) => FavoriteController.addFavorite(req, res));
+/**
+ * @route GET /favorites
+ * @description Obtiene todos los favoritos del usuario autenticado.
+ */
+router.get("/", (req: Request, res: Response) =>FavoriteController.getUserFavorites(req, res));
 
-// Eliminar favorito (el front usa /favorites/:movieId)
-router.delete("/:pexelsId", (req, res) => FavoriteController.removeFavorite(req, res));
+/**
+ * @route POST /favorites
+ * @description Agrega una película a los favoritos del usuario.
+ * @body {string} pexelsId - ID de la película en Pexels
+ * @body {string} title - Título de la película
+ * @body {string} [thumbnail] - Imagen miniatura opcional
+ */
+router.post("/", (req: Request, res: Response) =>
+  FavoriteController.addFavorite(req, res)
+);
+
+/**
+ * @route DELETE /favorites/:pexelsId
+ * @description Elimina una película de los favoritos del usuario.
+ * @param {string} pexelsId - ID de la película en Pexels
+ */
+router.delete("/:pexelsId", (req: Request, res: Response) =>
+  FavoriteController.removeFavorite(req, res)
+);
 
 export default router;

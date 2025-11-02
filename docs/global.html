@@ -66,7 +66,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-api_routes_movieRoutes.html">api/routes/movieRoutes</a></li><li><a href="module-routes_userRoutes.html">routes/userRoutes</a></li></ul><h3>Classes</h3><ul><li><a href="PasswordController.html">PasswordController</a></li><li><a href="module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#create">create</a></li><li><a href="global.html#delete">delete</a></li><li><a href="global.html#getAll">getAll</a></li><li><a href="global.html#read">read</a></li><li><a href="global.html#sendResetEmail">sendResetEmail</a></li><li><a href="global.html#update">update</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-Server.html">Server</a></li><li><a href="module-api_routes_averageRoutes.html">api/routes/averageRoutes</a></li><li><a href="module-routes_userRoutes.html">routes/userRoutes</a></li></ul><h3>Namespaces</h3><ul><li><a href="AverageController.html">AverageController</a></li><li><a href="FavoriteController.html">FavoriteController</a></li><li><a href="ReviewController.html">ReviewController</a></li></ul><h3>Classes</h3><ul><li><a href="GlobalController_GlobalController.html">GlobalController</a></li><li><a href="GlobalDAO_GlobalDAO.html">GlobalDAO</a></li><li><a href="MovieController.html">MovieController</a></li><li><a href="PasswordController.html">PasswordController</a></li><li><a href="module.exports_module.exports.html">exports</a></li></ul><h3>Interfaces</h3><ul><li><a href="IAverage.html">IAverage</a></li><li><a href="IFavorite.html">IFavorite</a></li><li><a href="IMovie.html">IMovie</a></li><li><a href="IReview.html">IReview</a></li><li><a href="IUser.html">IUser</a></li><li><a href="IVideoFile.html">IVideoFile</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AverageSchema">AverageSchema</a></li><li><a href="global.html#FavoriteSchema">FavoriteSchema</a></li><li><a href="global.html#MovieSchema">MovieSchema</a></li><li><a href="global.html#ReviewSchema">ReviewSchema</a></li><li><a href="global.html#User">User</a></li><li><a href="global.html#VideoFileSchema">VideoFileSchema</a></li><li><a href="global.html#controllers/FavoriteController.ts">controllers/FavoriteController.ts</a></li><li><a href="global.html#controllers/ReviewController.ts">controllers/ReviewController.ts</a></li><li><a href="global.html#create">create</a></li><li><a href="global.html#delete">delete</a></li><li><a href="global.html#deleteProfile">deleteProfile</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getAll">getAll</a></li><li><a href="global.html#getAverageByMovie">getAverageByMovie</a></li><li><a href="global.html#getMoviesByGenre">getMoviesByGenre</a></li><li><a href="global.html#getProfile">getProfile</a></li><li><a href="global.html#getUserIdFromToken">getUserIdFromToken</a></li><li><a href="global.html#globalController">globalController</a></li><li><a href="global.html#importMovieFromPexels">importMovieFromPexels</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#read">read</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#requestPasswordReset">requestPasswordReset</a></li><li><a href="global.html#resetPassword">resetPassword</a></li><li><a href="global.html#searchMovies">searchMovies</a></li><li><a href="global.html#searchVideos">searchVideos</a></li><li><a href="global.html#sendResetEmail">sendResetEmail</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#updateAverageForMovie">updateAverageForMovie</a></li><li><a href="global.html#updateProfile">updateProfile</a></li><li><a href="global.html#userSchema">userSchema</a></li></ul></div>
                 
             </nav>
         </div>
@@ -150,11 +150,1341 @@
     
 
     
+        <div class='vertical-section'>
+            <h1>Members</h1>
+            <div class="members">
+            
+                <div class="member">
+
+<h4 class="name" id="AverageSchema">
+    <a class="href-link" href="#AverageSchema">#</a>
+    
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        AverageSchema
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>Defines the schema for storing average movie ratings and review counts.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_Average.ts.html" class="button">View Source</a>
+            <span>
+                <a href="models_Average.ts.html">models/Average.ts</a>, <a href="models_Average.ts.html#line7">line 7</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id="FavoriteSchema">
+    <a class="href-link" href="#FavoriteSchema">#</a>
+    
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        FavoriteSchema
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>Defines the schema for user favorites.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_Favorite.ts.html" class="button">View Source</a>
+            <span>
+                <a href="models_Favorite.ts.html">models/Favorite.ts</a>, <a href="models_Favorite.ts.html#line8">line 8</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id="MovieSchema">
+    <a class="href-link" href="#MovieSchema">#</a>
+    
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        MovieSchema
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>Defines the MongoDB schema for movies.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_Movie.ts.html" class="button">View Source</a>
+            <span>
+                <a href="models_Movie.ts.html">models/Movie.ts</a>, <a href="models_Movie.ts.html#line19">line 19</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id="ReviewSchema">
+    <a class="href-link" href="#ReviewSchema">#</a>
+    
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        ReviewSchema
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>Defines the MongoDB schema for user reviews.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_Review.ts.html" class="button">View Source</a>
+            <span>
+                <a href="models_Review.ts.html">models/Review.ts</a>, <a href="models_Review.ts.html#line7">line 7</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id="User">
+    <a class="href-link" href="#User">#</a>
+    
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        User
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>Mongoose model for the User collection.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_User.ts.html" class="button">View Source</a>
+            <span>
+                <a href="models_User.ts.html">models/User.ts</a>, <a href="models_User.ts.html#line25">line 25</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id="VideoFileSchema">
+    <a class="href-link" href="#VideoFileSchema">#</a>
+    
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        VideoFileSchema
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>Defines the subdocument schema for video files.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_Movie.ts.html" class="button">View Source</a>
+            <span>
+                <a href="models_Movie.ts.html">models/Movie.ts</a>, <a href="models_Movie.ts.html#line7">line 7</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">Object</code>
+
+
+    </span>
+
+<h4 class="name" id="globalController">
+    <a class="href-link" href="#globalController">#</a>
+    
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        globalController
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>Combined User Controller.
+Merges generic GlobalController methods with user-specific logic.</p>
+</div>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+<div class="table-container">
+    <table class="props table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>create</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">function</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Create a new record.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>read</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">function</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Retrieve a record by ID.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>update</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">function</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Update a record.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>delete</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">function</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Delete a record.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>getAll</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">function</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Retrieve all records.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>registerUser</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">function</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>User registration.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>loginUser</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">function</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>User login.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>requestPasswordReset</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">function</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Password reset request.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>resetPassword</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">function</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Password reset.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>getProfile</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">function</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Retrieve user profile.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>updateProfile</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">function</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Update user profile.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>deleteProfile</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">function</code>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Delete user account.</p></td>
+</tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="controllers_UserController.ts.html" class="button">View Source</a>
+            <span>
+                <a href="controllers_UserController.ts.html">controllers/UserController.ts</a>, <a href="controllers_UserController.ts.html#line277">line 277</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id="searchVideos">
+    <a class="href-link" href="#searchVideos">#</a>
+    
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        searchVideos
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>Search videos from Pexels API.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="services_pexelsService.ts.html" class="button">View Source</a>
+            <span>
+                <a href="services_pexelsService.ts.html">services/pexelsService.ts</a>, <a href="services_pexelsService.ts.html#line11">line 11</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id="userSchema">
+    <a class="href-link" href="#userSchema">#</a>
+    
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        userSchema
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>Defines the MongoDB schema for users.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_User.ts.html" class="button">View Source</a>
+            <span>
+                <a href="models_User.ts.html">models/User.ts</a>, <a href="models_User.ts.html#line7">line 7</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+            </div>
+        </div>
+    
 
     
         <div class='vertical-section'>
             <h1>Methods</h1>
             <div class="members">
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="controllers/FavoriteController.ts">
+        <a class="href-link" href="#controllers/FavoriteController.ts">#</a>
+        
+        <span class="code-name">
+            
+                controllers/FavoriteController.ts<span class="signature">(req)</span><span class="type-signature"> &rarr; {mongoose.Types.ObjectId|null}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Controller responsible for handling CRUD operations related to user favorites.
+Includes functions to add, retrieve, and delete favorites, as well as validate JWT tokens.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>req</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">AuthRequest</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="controllers_FavoriteController.ts.html" class="button">View Source</a>
+            <span>
+                <a href="controllers_FavoriteController.ts.html">controllers/FavoriteController.ts</a>, <a href="controllers_FavoriteController.ts.html#line167">line 167</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">mongoose.Types.ObjectId</code>
+|
+
+<code class="param-type">null</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="controllers/ReviewController.ts">
+        <a class="href-link" href="#controllers/ReviewController.ts">#</a>
+        
+        <span class="code-name">
+            
+                controllers/ReviewController.ts<span class="signature">(req)</span><span class="type-signature"> &rarr; {mongoose.Types.ObjectId|null}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Controller responsible for managing movie reviews.
+Provides functionality to create, retrieve, update, and delete reviews
+associated with authenticated users. It also updates movie rating averages
+through the <code>AverageDAO</code>.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>req</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">AuthRequest</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="controllers_ReviewController.ts.html" class="button">View Source</a>
+            <span>
+                <a href="controllers_ReviewController.ts.html">controllers/ReviewController.ts</a>, <a href="controllers_ReviewController.ts.html#line198">line 198</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">mongoose.Types.ObjectId</code>
+|
+
+<code class="param-type">null</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
             
                 <div class="member">
 
@@ -169,7 +1499,7 @@
         
         <span class="code-name">
             
-                create<span class="signature">()</span><span class="type-signature"></span>
+                create<span class="signature">(data)</span><span class="type-signature"> &rarr; {Promise.&lt;T>}</span>
             
         </span>
     </h4>
@@ -178,7 +1508,7 @@
     
     
     <div class="description">
-        <p>Crear un nuevo documento</p>
+        <p>Creates a new document in the database.</p>
     </div>
     
 
@@ -189,6 +1519,57 @@
 
 
 
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>data</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Partial.&lt;T></code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The data to create the new document.</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -229,7 +1610,7 @@
         <p class="tag-source">
             <a href="dao_GlobalDAO.ts.html" class="button">View Source</a>
             <span>
-                <a href="dao_GlobalDAO.ts.html">dao/GlobalDAO.ts</a>, <a href="dao_GlobalDAO.ts.html#line14">line 14</a>
+                <a href="dao_GlobalDAO.ts.html">dao/GlobalDAO.ts</a>, <a href="dao_GlobalDAO.ts.html#line27">line 27</a>
             </span>
         </p>
     
@@ -250,7 +1631,53 @@
 
 
 
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Throws:</label></div>
+        <div class="column is-10">
+            
+                    
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>If there is an issue creating the document.</p></div>
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+<code class="param-type">Error</code>
 
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>The created document.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">Promise.&lt;T></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
 
 
 
@@ -270,7 +1697,7 @@
         
         <span class="code-name">
             
-                delete<span class="signature">()</span><span class="type-signature"></span>
+                delete<span class="signature">(id)</span><span class="type-signature"> &rarr; {Promise.&lt;T>}</span>
             
         </span>
     </h4>
@@ -279,7 +1706,7 @@
     
     
     <div class="description">
-        <p>Eliminar un documento por ID</p>
+        <p>Deletes a document by its ID.</p>
     </div>
     
 
@@ -290,6 +1717,57 @@
 
 
 
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>id</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The ID of the document to delete.</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -330,7 +1808,7 @@
         <p class="tag-source">
             <a href="dao_GlobalDAO.ts.html" class="button">View Source</a>
             <span>
-                <a href="dao_GlobalDAO.ts.html">dao/GlobalDAO.ts</a>, <a href="dao_GlobalDAO.ts.html#line51">line 51</a>
+                <a href="dao_GlobalDAO.ts.html">dao/GlobalDAO.ts</a>, <a href="dao_GlobalDAO.ts.html#line86">line 86</a>
             </span>
         </p>
     
@@ -351,7 +1829,53 @@
 
 
 
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Throws:</label></div>
+        <div class="column is-10">
+            
+                    
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>If the document is not found or if a deletion error occurs.</p></div>
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+<code class="param-type">Error</code>
 
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>The deleted document.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">Promise.&lt;T></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
 
 
 
@@ -362,8 +1886,8 @@
 
 
     
-    <h4 class="name" id="getAll">
-        <a class="href-link" href="#getAll">#</a>
+    <h4 class="name" id="deleteProfile">
+        <a class="href-link" href="#deleteProfile">#</a>
         
             
                 <span class='tag'>async</span>
@@ -371,7 +1895,7 @@
         
         <span class="code-name">
             
-                getAll<span class="signature">()</span><span class="type-signature"></span>
+                deleteProfile<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {Promise.&lt;Response>}</span>
             
         </span>
     </h4>
@@ -380,7 +1904,7 @@
     
     
     <div class="description">
-        <p>Obtener todos los documentos (opcionalmente con un filtro)</p>
+        <p>Deletes the authenticated user's account.</p>
     </div>
     
 
@@ -392,208 +1916,81 @@
 
 
 
-
-
-
-
-<dl class="details">
-
+    <h5>Parameters:</h5>
     
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
 
-    
+            <th>Type</th>
 
-    
+            
 
-    
+            
 
-    
+            <th class="last">Description</th>
+        </tr>
+        </thead>
 
-    
+        <tbody>
+        
 
-    
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>req</code></td>
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="dao_GlobalDAO.ts.html" class="button">View Source</a>
-            <span>
-                <a href="dao_GlobalDAO.ts.html">dao/GlobalDAO.ts</a>, <a href="dao_GlobalDAO.ts.html#line63">line 63</a>
-            </span>
-        </p>
-    
-</dl>
+  <td class="type">
+  
+      
+<code class="param-type">Request</code>
 
 
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Must include the Authorization header with JWT.</p></td>
+</tr>
 
 
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>res</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Response</code>
 
 
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Returns success or error message.</p></td>
+</tr>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
+        </tbody>
+    </table>
 </div>
-            
-                <div class="member">
-
-
-    
-    <h4 class="name" id="read">
-        <a class="href-link" href="#read">#</a>
-        
-            
-                <span class='tag'>async</span>
-            
-        
-        <span class="code-name">
-            
-                read<span class="signature">()</span><span class="type-signature"></span>
-            
-        </span>
-    </h4>
-    
-
-    
-    
-    <div class="description">
-        <p>Obtener un documento por ID</p>
-    </div>
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="dao_GlobalDAO.ts.html" class="button">View Source</a>
-            <span>
-                <a href="dao_GlobalDAO.ts.html">dao/GlobalDAO.ts</a>, <a href="dao_GlobalDAO.ts.html#line24">line 24</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-            
-                <div class="member">
-
-
-    
-    <h4 class="name" id="sendResetEmail">
-        <a class="href-link" href="#sendResetEmail">#</a>
-        
-            
-                <span class='tag'>async</span>
-            
-        
-        <span class="code-name">
-            
-                sendResetEmail<span class="signature">()</span><span class="type-signature"></span>
-            
-        </span>
-    </h4>
-    
-
-    
-    
-    <div class="description">
-        <p>✅ Nueva función para enviar correo con SendGrid
-(Reemplaza el uso anterior de nodemailer, ya que Render no permite SMTP)</p>
-    </div>
-    
-
-
-
-
-
-
-
-
 
 
 
@@ -634,7 +2031,7 @@
         <p class="tag-source">
             <a href="controllers_UserController.ts.html" class="button">View Source</a>
             <span>
-                <a href="controllers_UserController.ts.html">controllers/UserController.ts</a>, <a href="controllers_UserController.ts.html#line15">line 15</a>
+                <a href="controllers_UserController.ts.html">controllers/UserController.ts</a>, <a href="controllers_UserController.ts.html#line230">line 230</a>
             </span>
         </p>
     
@@ -657,6 +2054,29 @@
 
 
 
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">Promise.&lt;Response></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
 
 
 
@@ -666,8 +2086,8 @@
 
 
     
-    <h4 class="name" id="update">
-        <a class="href-link" href="#update">#</a>
+    <h4 class="name" id="forgotPassword">
+        <a class="href-link" href="#forgotPassword">#</a>
         
             
                 <span class='tag'>async</span>
@@ -675,7 +2095,7 @@
         
         <span class="code-name">
             
-                update<span class="signature">()</span><span class="type-signature"></span>
+                forgotPassword<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
             
         </span>
     </h4>
@@ -684,7 +2104,9 @@
     
     
     <div class="description">
-        <p>Actualizar un documento por ID</p>
+        <p>Step 1 of the recovery process:
+receives the user’s email, generates a reset token,
+stores it in the database, and sends an email with a secure link.</p>
     </div>
     
 
@@ -695,6 +2117,286 @@
 
 
 
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>req</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Request</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Express request object containing the user's email.</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>res</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Response</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Express response object to send the result.</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="controllers_PasswordController.ts.html" class="button">View Source</a>
+            <span>
+                <a href="controllers_PasswordController.ts.html">controllers/PasswordController.ts</a>, <a href="controllers_PasswordController.ts.html#line189">line 189</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>JSON response with confirmation or error message.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">Promise.&lt;void></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+    <h5>Example</h5>
+    
+    
+        <pre class="prettyprint"><code>// POST /api/auth/forgot-password{  "email": "user@email.com"}</code></pre>
+    
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="getAll">
+        <a class="href-link" href="#getAll">#</a>
+        
+            
+                <span class='tag'>async</span>
+            
+        
+        <span class="code-name">
+            
+                getAll<span class="signature">(filter<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;T>>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Retrieves all documents that match an optional filter.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+            <th>Attributes</th>
+            
+
+            
+            <th>Default</th>
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>filter</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">FilterQuery.&lt;T></code>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
+
+      
+
+      
+      </td>
+  
+
+  
+      <td class="default">
+      
+          {}
+      
+      </td>
+  
+
+  <td class="description last"><p>Optional filter to apply to the query.</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -735,7 +2437,205 @@
         <p class="tag-source">
             <a href="dao_GlobalDAO.ts.html" class="button">View Source</a>
             <span>
-                <a href="dao_GlobalDAO.ts.html">dao/GlobalDAO.ts</a>, <a href="dao_GlobalDAO.ts.html#line36">line 36</a>
+                <a href="dao_GlobalDAO.ts.html">dao/GlobalDAO.ts</a>, <a href="dao_GlobalDAO.ts.html#line105">line 105</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Throws:</label></div>
+        <div class="column is-10">
+            
+                    
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>If there is an issue retrieving the documents.</p></div>
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+<code class="param-type">Error</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>An array of documents.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">Promise.&lt;Array.&lt;T>></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="getAverageByMovie">
+        <a class="href-link" href="#getAverageByMovie">#</a>
+        
+            
+                <span class='tag'>async</span>
+            
+        
+        <span class="code-name">
+            
+                getAverageByMovie<span class="signature">(pexelsId)</span><span class="type-signature"> &rarr; {Promise.&lt;(<a href="IAverage.html">IAverage</a>|null)>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Obtiene el promedio actual de una película.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>pexelsId</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>ID de la película en Pexels.</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="dao_AverageDAO.ts.html" class="button">View Source</a>
+            <span>
+                <a href="dao_AverageDAO.ts.html">dao/AverageDAO.ts</a>, <a href="dao_AverageDAO.ts.html#line85">line 85</a>
             </span>
         </p>
     
@@ -757,6 +2657,2835 @@
 
 
 
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>Documento con los datos del promedio o <code>null</code> si no existe.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">Promise.&lt;(<a href="IAverage.html">IAverage</a>|null)></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="getMoviesByGenre">
+        <a class="href-link" href="#getMoviesByGenre">#</a>
+        
+            
+                <span class='tag'>async</span>
+            
+        
+        <span class="code-name">
+            
+                getMoviesByGenre<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Retrieves all movies belonging to a specific genre.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>req</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Request</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Contains the <code>genre</code> parameter.</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>res</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Response</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Express response object.</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="controllers_MovieController.ts.html" class="button">View Source</a>
+            <span>
+                <a href="controllers_MovieController.ts.html">controllers/MovieController.ts</a>, <a href="controllers_MovieController.ts.html#line351">line 351</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>List of movies filtered by genre.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">Promise.&lt;void></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+    <h5>Example</h5>
+    
+    
+        <pre class="prettyprint"><code>// GET /api/v1/movies/genre/:genre</code></pre>
+    
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="getProfile">
+        <a class="href-link" href="#getProfile">#</a>
+        
+            
+                <span class='tag'>async</span>
+            
+        
+        <span class="code-name">
+            
+                getProfile<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {Promise.&lt;Response>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Retrieves the authenticated user's profile using the JWT token.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>req</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Request</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Must include the Authorization header with JWT.</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>res</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Response</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Returns user data without the password field.</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="controllers_UserController.ts.html" class="button">View Source</a>
+            <span>
+                <a href="controllers_UserController.ts.html">controllers/UserController.ts</a>, <a href="controllers_UserController.ts.html#line165">line 165</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">Promise.&lt;Response></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="getUserIdFromToken">
+        <a class="href-link" href="#getUserIdFromToken">#</a>
+        
+        <span class="code-name">
+            
+                getUserIdFromToken<span class="signature">(req)</span><span class="type-signature"> &rarr; {mongoose.Types.ObjectId|null}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Extracts the user's ID (<code>userId</code>) from the JWT token sent in the request headers.
+Returns <code>null</code> if the token is invalid or missing.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>req</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">AuthRequest</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>HTTP request object containing the <code>Authorization</code> header.</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="controllers_ReviewController.ts.html" class="button">View Source</a>
+            <span>
+                <a href="controllers_ReviewController.ts.html">controllers/ReviewController.ts</a>, <a href="controllers_ReviewController.ts.html#line13">line 13</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>The user ID if the token is valid, or <code>null</code> otherwise.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">mongoose.Types.ObjectId</code>
+|
+
+<code class="param-type">null</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="importMovieFromPexels">
+        <a class="href-link" href="#importMovieFromPexels">#</a>
+        
+            
+                <span class='tag'>async</span>
+            
+        
+        <span class="code-name">
+            
+                importMovieFromPexels<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Searches for videos on Pexels by a given term and imports them as movies.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>req</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Request</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Contains the <code>query</code> field in the request body.</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>res</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Response</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Express response object.</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="controllers_MovieController.ts.html" class="button">View Source</a>
+            <span>
+                <a href="controllers_MovieController.ts.html">controllers/MovieController.ts</a>, <a href="controllers_MovieController.ts.html#line381">line 381</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>Newly imported movie or error message.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">Promise.&lt;void></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+    <h5>Example</h5>
+    
+    
+        <pre class="prettyprint"><code>// POST /api/v1/movies/import{  "query": "nature"}</code></pre>
+    
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="loginUser">
+        <a class="href-link" href="#loginUser">#</a>
+        
+            
+                <span class='tag'>async</span>
+            
+        
+        <span class="code-name">
+            
+                loginUser<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {Promise.&lt;Response>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Logs in an existing user and returns a JWT token.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>req</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Request</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Contains email and password.</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>res</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Response</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Returns a JWT if credentials are valid.</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="controllers_UserController.ts.html" class="button">View Source</a>
+            <span>
+                <a href="controllers_UserController.ts.html">controllers/UserController.ts</a>, <a href="controllers_UserController.ts.html#line134">line 134</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">Promise.&lt;Response></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="read">
+        <a class="href-link" href="#read">#</a>
+        
+            
+                <span class='tag'>async</span>
+            
+        
+        <span class="code-name">
+            
+                read<span class="signature">(id)</span><span class="type-signature"> &rarr; {Promise.&lt;T>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Retrieves a document by its ID.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>id</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The ID of the document to retrieve.</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="dao_GlobalDAO.ts.html" class="button">View Source</a>
+            <span>
+                <a href="dao_GlobalDAO.ts.html">dao/GlobalDAO.ts</a>, <a href="dao_GlobalDAO.ts.html#line44">line 44</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Throws:</label></div>
+        <div class="column is-10">
+            
+                    
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>If the document is not found or if an error occurs.</p></div>
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+<code class="param-type">Error</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>The found document.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">Promise.&lt;T></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="registerUser">
+        <a class="href-link" href="#registerUser">#</a>
+        
+            
+                <span class='tag'>async</span>
+            
+        
+        <span class="code-name">
+            
+                registerUser<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {Promise.&lt;Response>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Registers a new user in the database.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>req</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Request</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Contains user data (username, email, password, etc.).</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>res</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Response</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Returns success or error message.</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="controllers_UserController.ts.html" class="button">View Source</a>
+            <span>
+                <a href="controllers_UserController.ts.html">controllers/UserController.ts</a>, <a href="controllers_UserController.ts.html#line101">line 101</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">Promise.&lt;Response></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="requestPasswordReset">
+        <a class="href-link" href="#requestPasswordReset">#</a>
+        
+            
+                <span class='tag'>async</span>
+            
+        
+        <span class="code-name">
+            
+                requestPasswordReset<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {Promise.&lt;Response>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Handles password reset requests by generating a temporary token
+and sending it to the user's email.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>req</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Request</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>HTTP request object.</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>res</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Response</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>HTTP response object.</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="controllers_UserController.ts.html" class="button">View Source</a>
+            <span>
+                <a href="controllers_UserController.ts.html">controllers/UserController.ts</a>, <a href="controllers_UserController.ts.html#line41">line 41</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>A success or error message.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">Promise.&lt;Response></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="resetPassword">
+        <a class="href-link" href="#resetPassword">#</a>
+        
+            
+                <span class='tag'>async</span>
+            
+        
+        <span class="code-name">
+            
+                resetPassword<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {Promise.&lt;Response>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Resets the user's password using a valid reset token.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>req</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Request</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Contains the token and the new password.</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>res</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Response</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Returns success or error message.</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="controllers_UserController.ts.html" class="button">View Source</a>
+            <span>
+                <a href="controllers_UserController.ts.html">controllers/UserController.ts</a>, <a href="controllers_UserController.ts.html#line72">line 72</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">Promise.&lt;Response></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="searchMovies">
+        <a class="href-link" href="#searchMovies">#</a>
+        
+            
+                <span class='tag'>async</span>
+            
+        
+        <span class="code-name">
+            
+                searchMovies<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Searches for movies whose titles contain a specific text.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>req</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Request</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Contains the query parameter <code>q</code> (search term).</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>res</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Response</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Express response object.</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="controllers_MovieController.ts.html" class="button">View Source</a>
+            <span>
+                <a href="controllers_MovieController.ts.html">controllers/MovieController.ts</a>, <a href="controllers_MovieController.ts.html#line366">line 366</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>List of matching movies.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">Promise.&lt;void></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+    <h5>Example</h5>
+    
+    
+        <pre class="prettyprint"><code>// GET /api/v1/movies/search?q=batman</code></pre>
+    
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="sendResetEmail">
+        <a class="href-link" href="#sendResetEmail">#</a>
+        
+            
+                <span class='tag'>async</span>
+            
+        
+        <span class="code-name">
+            
+                sendResetEmail<span class="signature">(email, token)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Sends a password reset email to the user.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>email</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>User's email address.</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>token</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Unique reset token.</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="controllers_UserController.ts.html" class="button">View Source</a>
+            <span>
+                <a href="controllers_UserController.ts.html">controllers/UserController.ts</a>, <a href="controllers_UserController.ts.html#line11">line 11</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Throws:</label></div>
+        <div class="column is-10">
+            
+                    
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>If the email fails to send.</p></div>
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+<code class="param-type">Error</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="update">
+        <a class="href-link" href="#update">#</a>
+        
+            
+                <span class='tag'>async</span>
+            
+        
+        <span class="code-name">
+            
+                update<span class="signature">(id, updateData)</span><span class="type-signature"> &rarr; {Promise.&lt;T>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Updates a document by its ID.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>id</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The ID of the document to update.</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>updateData</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">UpdateQuery.&lt;T></code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The data to update in the document.</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="dao_GlobalDAO.ts.html" class="button">View Source</a>
+            <span>
+                <a href="dao_GlobalDAO.ts.html">dao/GlobalDAO.ts</a>, <a href="dao_GlobalDAO.ts.html#line64">line 64</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Throws:</label></div>
+        <div class="column is-10">
+            
+                    
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>If the document is not found or if an update error occurs.</p></div>
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+<code class="param-type">Error</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>The updated document.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">Promise.&lt;T></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="updateAverageForMovie">
+        <a class="href-link" href="#updateAverageForMovie">#</a>
+        
+            
+                <span class='tag'>async</span>
+            
+        
+        <span class="code-name">
+            
+                updateAverageForMovie<span class="signature">(pexelsId)</span><span class="type-signature"> &rarr; {Promise.&lt;(<a href="IAverage.html">IAverage</a>|null)>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Calcula y actualiza el promedio de calificaciones de una película
+a partir de sus reseñas activas.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>pexelsId</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>ID de la película en Pexels.</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="dao_AverageDAO.ts.html" class="button">View Source</a>
+            <span>
+                <a href="dao_AverageDAO.ts.html">dao/AverageDAO.ts</a>, <a href="dao_AverageDAO.ts.html#line73">line 73</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>El promedio actualizado o <code>null</code> si no hay reseñas.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">Promise.&lt;(<a href="IAverage.html">IAverage</a>|null)></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="updateProfile">
+        <a class="href-link" href="#updateProfile">#</a>
+        
+            
+                <span class='tag'>async</span>
+            
+        
+        <span class="code-name">
+            
+                updateProfile<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {Promise.&lt;Response>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Updates the authenticated user's profile information.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>req</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Request</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Contains updated profile data.</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>res</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Response</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Returns confirmation message and updated user data.</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="controllers_UserController.ts.html" class="button">View Source</a>
+            <span>
+                <a href="controllers_UserController.ts.html">controllers/UserController.ts</a>, <a href="controllers_UserController.ts.html#line192">line 192</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">Promise.&lt;Response></code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
 
 
 

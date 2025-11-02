@@ -1,64 +1,128 @@
+/**
+ * @file index.ts
+ * @description Main entry point for the Express server. 
+ * Configures environment variables, database connection, 
+ * global middlewares, CORS handling, and route mounting.
+ * 
+ * @module Server
+ */
+
 import express from "express";
 import dotenv from "dotenv";
-import cors from "cors";  // Asegúrate de que CORS esté habilitado para tu frontend
-import connectDB from "./config/database"; // Conexión a MongoDB
-import authRoutes from "./routes/authRoutes"; // Rutas de autenticación
-import routes from "./routes/routes"; // Rutas generales de la API
-import userRoutes from "./routes/userRoutes"; // Asegúrate de que la ruta de usuarios sea correcta
-import favoriteRoutes from "./routes/favoriteRoutes"; // Asegúrate de que la ruta de usuarios sea correcta
-import reviewRoutes from "./routes/reviewRoutes"; 
-import averageRoutes from "./routes/averageRoutes";
+import cors from "cors"; // Enables CORS to allow frontend requests
+import connectDB from "./config/database"; // MongoDB connection
+import authRoutes from "./routes/authRoutes"; // Authentication routes
+import routes from "./routes/routes"; // General API routes
+import userRoutes from "./routes/userRoutes"; // User management routes
+import favoriteRoutes from "./routes/favoriteRoutes"; // Favorite routes
+import reviewRoutes from "./routes/reviewRoutes"; // Review routes
+import averageRoutes from "./routes/averageRoutes"; // Average rating routes
 
-dotenv.config();  // Cargar las variables de entorno
+dotenv.config(); // Load environment variables from .env file
 
+/** 
+ * Main Express application instance.
+ * @type {import('express').Application}
+ */
 const app = express();
 
+/* ==========================
+   🧩 GLOBAL MIDDLEWARES
+   ========================== */
 
-// Middleware
-app.use(express.json());  // Para que el servidor pueda procesar datos JSON
+/**
+ * Middleware to parse incoming JSON requests.
+ * Allows Express to handle JSON data in request bodies.
+ */
+app.use(express.json());
 
-// 🔐 Configurar CORS para Render + Vercel + Localhost
+/**
+ * Whitelisted origins allowed for CORS requests.
+ * Includes development and production environments (Vercel, Render, Localhost).
+ * @type {string[]}
+ */
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://to-do-list-client-movienest.vercel.app", // dominio del front en Vercel.
-  
+  "https://to-do-list-client-movienest.vercel.app"
 ];
 
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      console.warn("Bloqueado por CORS:", origin);
-      callback(new Error("No permitido por CORS"));
-    }
-  },
-  credentials: true,
-}));
-// Usar rutas de autenticación
+/**
+ * CORS Middleware.
+ * Only allows requests from the origins defined in allowedOrigins.
+ */
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        console.warn("Blocked by CORS:", origin);
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
+
+/* ==========================
+   🧭 MAIN ROUTES
+   ========================== */
+
+/**
+ * Authentication routes.
+ * Prefix: `/api/auth`
+ */
 app.use("/api/auth", authRoutes);
 
-// Conexión a la base de datos
+/**
+ * Establish MongoDB connection.
+ * Executed when the server starts.
+ * @function connectDB
+ */
 connectDB();
 
-// Usar las rutas generales de la API bajo el prefijo /api/v1
+/**
+ * General API routes.
+ * Prefix: `/api/v1`
+ */
 app.use("/api/v1", routes);
 
-// Usar las rutas de usuario bajo /api/v1/users
-app.use("/api/v1/users", userRoutes);  // Aquí se importa correctamente `userRoutes`
+/**
+ * User management routes.
+ * Prefix: `/api/v1/users`
+ */
+app.use("/api/v1/users", userRoutes);
+
+/**
+ * Favorite management routes.
+ * Prefix: `/api/v1/favorites`
+ */
 app.use("/api/v1/favorites", favoriteRoutes);
+
+/**
+ * Review management routes.
+ * Prefix: `/api/v1/reviews`
+ */
 app.use("/api/v1/reviews", reviewRoutes);
+
+/**
+ * Average calculation routes.
+ * Prefix: `/api/v1/average`
+ */
 app.use("/api/v1/average", averageRoutes);
 
 /**
- * Health check endpoint.
- * Provides a simple way to verify that the server is running.
+ * @route GET /
+ * @description Health check endpoint. 
+ * Verifies that the server is running correctly.
+ * @returns {string} A confirmation message.
  */
 app.get("/", (req, res) => res.send("Server is running"));
 
 /**
- * Start server (only if executed directly)
-*/
+ * Starts the server only if this file is executed directly.
+ * Skipped when running unit tests or importing the module.
+ */
 if (require.main === module) {
   const PORT = process.env.PORT || 8080;
   app.listen(PORT, () => {

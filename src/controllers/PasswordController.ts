@@ -1,3 +1,11 @@
+/**
+ * @file PasswordController.ts
+ * @description Controller responsible for managing the complete flow of password recovery 
+ * and reset for users. Supports email sending with both SendGrid and Nodemailer (fallback mode).
+ * 
+ * @module Controllers/PasswordController
+ */
+
 import { Request, Response } from "express";
 import crypto from "crypto";
 import bcrypt from "bcryptjs";
@@ -9,79 +17,95 @@ import User, { IUser } from "../models/User";
 dotenv.config();
 
 /**
- * Configurar SendGrid si existe la API key
+ * Configure SendGrid if the API key is available.
+ * If not, the system will use Nodemailer as a fallback.
  */
 if (process.env.SENDGRID_API_KEY) {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-  console.log("✅ SendGrid configurado correctamente");
+  console.log("✅ SendGrid configured successfully");
 } else {
-  console.warn("⚠️ No se encontró SENDGRID_API_KEY, se usará Nodemailer como respaldo");
+  console.warn("⚠️ SENDGRID_API_KEY not found, Nodemailer will be used as fallback");
 }
 
 /**
- * Controlador para recuperación y restablecimiento de contraseña.
+ * Controller for handling password recovery and reset processes.
+ * 
+ * @class PasswordController
+ * @classdesc Manages password recovery (forgotPassword)
+ * and password reset (resetPassword) operations.
  */
 class PasswordController {
   /**
-   * Paso 1: Solicitar recuperación de contraseña
+   * @async
+   * @method forgotPassword
+   * @description Step 1 of the recovery process: 
+   * receives the user’s email, generates a reset token,
+   * stores it in the database, and sends an email with a secure link.
+   * 
+   * @param {Request} req - Express request object containing the user's email.
+   * @param {Response} res - Express response object to send the result.
+   * 
+   * @returns {Promise<void>} JSON response with confirmation or error message.
+   * 
+   * @example
+   * // POST /api/auth/forgot-password
+   * {
+   *   "email": "user@email.com"
+   * }
    */
   async forgotPassword(req: Request, res: Response): Promise<void> {
     try {
       const { email } = req.body;
 
       if (!email) {
-        res.status(400).json({ msg: "El campo 'email' es obligatorio" });
+        res.status(400).json({ msg: "The 'email' field is required" });
         return;
       }
 
       const user = (await User.findOne({ email })) as IUser;
       if (!user) {
-        res.status(404).json({ msg: "Usuario no encontrado" });
+        res.status(404).json({ msg: "User not found" });
         return;
       }
 
-      // Generar token único
+      // Generate unique reset token
       const resetToken = crypto.randomBytes(32).toString("hex");
       user.resetPasswordToken = resetToken;
-      user.resetPasswordExpires = new Date(Date.now() + 3600000); // 1 hora
+      user.resetPasswordExpires = new Date(Date.now() + 3600000); // 1 hour
       await user.save();
 
-      // URL de recuperación
+      // Reset link
       const resetURL = `https://to-do-list-client-movienest.vercel.app/#/new-password?token=${resetToken}`;
 
-
-      // const resetURL = `http://localhost:5173/#/reset-password?token=${resetToken}`;
-
       const htmlMessage = `
-        <p>Hola ${user.username || "usuario"},</p>
-        <p>Has solicitado recuperar tu contraseña.</p>
-        <p>Haz clic en el siguiente enlace para restablecerla:</p>
+        <p>Hello ${user.username || "user"},</p>
+        <p>You requested to reset your password.</p>
+        <p>Click the following link to set a new password:</p>
         <a href="${resetURL}">${resetURL}</a>
-        <p>⚠️ Este enlace expirará en 1 hora.</p>
+        <p>⚠️ This link will expire in 1 hour.</p>
       `;
 
+      console.log("📧 Sending email to:", user.email);
+      console.log("🔗 Password reset URL:", resetURL);
 
-      console.log("📧 Enviando correo a:", user.email);
-      console.log("🔗 URL de recuperación:", resetURL);
-
-      // === ENVÍO DEL CORREO ===
+      // Send email using SendGrid or fallback to Nodemailer
       if (process.env.SENDGRID_API_KEY) {
         try {
           await sgMail.send({
             to: user.email,
-            from: "movienestplataforma@gmail.com", // Debe estar verificado en SendGrid
-            subject: "Recuperación de contraseña",
+            from: "movienestplataforma@gmail.com", // Must be verified in SendGrid
+            subject: "Password Recovery",
             html: htmlMessage,
           });
-          console.log("✅ Correo enviado con SendGrid");
+          console.log("✅ Email sent using SendGrid");
         } catch (err: any) {
-          console.error("❌ Error enviando con SendGrid:", err.response?.body || err);
-          throw new Error("Error al enviar el correo con SendGrid");
+          console.error("❌ Error sending with SendGrid:", err.response?.body || err);
+          throw new Error("Error sending email with SendGrid");
         }
       } else {
-        // === Fallback: Nodemailer (modo local o sin SendGrid)
+        // Fallback: send email using Nodemailer (local or no SendGrid)
         if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-          throw new Error("Faltan EMAIL_USER o EMAIL_PASS en el archivo .env");
+          throw new Error("Missing EMAIL_USER or EMAIL_PASS in .env file");
         }
 
         const transporter = nodemailer.createTransport({
@@ -98,35 +122,50 @@ class PasswordController {
           await transporter.sendMail({
             from: `"MovieNest" <${process.env.EMAIL_USER}>`,
             to: user.email,
-            subject: "Recuperación de contraseña",
+            subject: "Password Recovery",
             html: htmlMessage,
           });
-          console.log("✅ Correo enviado con Nodemailer");
+          console.log("✅ Email sent using Nodemailer");
         } catch (err: any) {
-          console.error("❌ Error enviando con Nodemailer:", err);
-          throw new Error("Error al enviar el correo con Nodemailer");
+          console.error("❌ Error sending with Nodemailer:", err);
+          throw new Error("Error sending email with Nodemailer");
         }
       }
 
-      res.json({ msg: "Se envió un email para recuperar tu contraseña" });
+      res.json({ msg: "A password recovery email has been sent" });
     } catch (err: any) {
-      console.error("🔥 ForgotPassword error completo:", err);
+      console.error("🔥 Full ForgotPassword error:", err);
       res.status(500).json({
-        msg: "Error en el servidor",
+        msg: "Server error",
         error: err.message || JSON.stringify(err),
       });
     }
   }
 
   /**
-   * Paso 2: Restablecer la contraseña con el token
+   * @async
+   * @method resetPassword
+   * @description Step 2 of the recovery process: 
+   * validates the received token and updates the user's password.
+   * 
+   * @param {Request} req - Express request object containing the token and new password.
+   * @param {Response} res - Express response object to send the result.
+   * 
+   * @returns {Promise<void>} JSON response with success or error message.
+   * 
+   * @example
+   * // POST /api/auth/reset-password
+   * {
+   *   "token": "a12b3c4d5e6f",
+   *   "newPassword": "newPassword123"
+   * }
    */
   async resetPassword(req: Request, res: Response): Promise<void> {
     try {
       const { token, newPassword } = req.body;
 
       if (!token || !newPassword) {
-        res.status(400).json({ msg: "Token y nueva contraseña son requeridos" });
+        res.status(400).json({ msg: "Token and new password are required" });
         return;
       }
 
@@ -136,7 +175,7 @@ class PasswordController {
       })) as IUser;
 
       if (!user) {
-        res.status(400).json({ msg: "Token inválido o expirado" });
+        res.status(400).json({ msg: "Invalid or expired token" });
         return;
       }
 
@@ -146,11 +185,11 @@ class PasswordController {
       user.resetPasswordExpires = undefined;
       await user.save();
 
-      res.json({ msg: "Contraseña actualizada correctamente" });
+      res.json({ msg: "Password successfully updated" });
     } catch (err: any) {
-      console.error("🔥 ResetPassword error completo:", err);
+      console.error("🔥 Full ResetPassword error:", err);
       res.status(500).json({
-        msg: "Error en el servidor",
+        msg: "Server error",
         error: err.message || JSON.stringify(err),
       });
     }

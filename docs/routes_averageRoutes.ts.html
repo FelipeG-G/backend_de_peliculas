@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> routes/movieRoutes.ts</title>
+  <title> routes/averageRoutes.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -68,7 +68,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-api_routes_movieRoutes.html">api/routes/movieRoutes</a></li><li><a href="module-routes_userRoutes.html">routes/userRoutes</a></li></ul><h3>Classes</h3><ul><li><a href="PasswordController.html">PasswordController</a></li><li><a href="module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#create">create</a></li><li><a href="global.html#delete">delete</a></li><li><a href="global.html#getAll">getAll</a></li><li><a href="global.html#read">read</a></li><li><a href="global.html#sendResetEmail">sendResetEmail</a></li><li><a href="global.html#update">update</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-Server.html">Server</a></li><li><a href="module-api_routes_averageRoutes.html">api/routes/averageRoutes</a></li><li><a href="module-routes_userRoutes.html">routes/userRoutes</a></li></ul><h3>Namespaces</h3><ul><li><a href="AverageController.html">AverageController</a></li><li><a href="FavoriteController.html">FavoriteController</a></li><li><a href="ReviewController.html">ReviewController</a></li></ul><h3>Classes</h3><ul><li><a href="GlobalController_GlobalController.html">GlobalController</a></li><li><a href="GlobalDAO_GlobalDAO.html">GlobalDAO</a></li><li><a href="MovieController.html">MovieController</a></li><li><a href="PasswordController.html">PasswordController</a></li><li><a href="module.exports_module.exports.html">exports</a></li></ul><h3>Interfaces</h3><ul><li><a href="IAverage.html">IAverage</a></li><li><a href="IFavorite.html">IFavorite</a></li><li><a href="IMovie.html">IMovie</a></li><li><a href="IReview.html">IReview</a></li><li><a href="IUser.html">IUser</a></li><li><a href="IVideoFile.html">IVideoFile</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AverageSchema">AverageSchema</a></li><li><a href="global.html#FavoriteSchema">FavoriteSchema</a></li><li><a href="global.html#MovieSchema">MovieSchema</a></li><li><a href="global.html#ReviewSchema">ReviewSchema</a></li><li><a href="global.html#User">User</a></li><li><a href="global.html#VideoFileSchema">VideoFileSchema</a></li><li><a href="global.html#controllers/FavoriteController.ts">controllers/FavoriteController.ts</a></li><li><a href="global.html#controllers/ReviewController.ts">controllers/ReviewController.ts</a></li><li><a href="global.html#create">create</a></li><li><a href="global.html#delete">delete</a></li><li><a href="global.html#deleteProfile">deleteProfile</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getAll">getAll</a></li><li><a href="global.html#getAverageByMovie">getAverageByMovie</a></li><li><a href="global.html#getMoviesByGenre">getMoviesByGenre</a></li><li><a href="global.html#getProfile">getProfile</a></li><li><a href="global.html#getUserIdFromToken">getUserIdFromToken</a></li><li><a href="global.html#globalController">globalController</a></li><li><a href="global.html#importMovieFromPexels">importMovieFromPexels</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#read">read</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#requestPasswordReset">requestPasswordReset</a></li><li><a href="global.html#resetPassword">resetPassword</a></li><li><a href="global.html#searchMovies">searchMovies</a></li><li><a href="global.html#searchVideos">searchVideos</a></li><li><a href="global.html#sendResetEmail">sendResetEmail</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#updateAverageForMovie">updateAverageForMovie</a></li><li><a href="global.html#updateProfile">updateProfile</a></li><li><a href="global.html#userSchema">userSchema</a></li></ul></div>
                 
             </nav>
         </div>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>routes/movieRoutes.ts</h1>
+                    <h1>routes/averageRoutes.ts</h1>
                 </header>
                 
 
@@ -86,70 +86,26 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import { Router, Request, Response } from "express";
-import MovieController from "../controllers/MovieController";
-import { searchVideos } from "../services/pexelsService";
-
+import AverageController from "../controllers/AverageController";
 
 const router = Router();
 
 /**
- * Movie Routes
+ * Average Routes
  *
- * Provides CRUD operations for movies.
+ * Handles endpoints related to movie rating averages.
  *
- * @module api/routes/movieRoutes
+ * @module api/routes/averageRoutes
  */
 
 /**
- * GET /movies
- * Retrieve all movies from the database.
+ * GET /average/:pexelsId
+ * Retrieve the average rating and total reviews for a specific movie.
  */
-router.get("/", (req: Request, res: Response) => MovieController.getAll(req, res));
+router.get("/:pexelsId", (req: Request, res: Response) =>
+  AverageController.getAverage(req, res)
+);
 
-/**
- * GET /movies/:id
- * Retrieve a single movie by its unique identifier.
- */
-router.get("/:id", (req: Request, res: Response) => MovieController.read(req, res));
-
-/**
- * POST /movies
- * Create a new movie and persist it in the database.
- */
-router.post("/", (req: Request, res: Response) => MovieController.create(req, res));
-
-/**
- * PUT /movies/:id
- * Update an existing movie by its unique identifier.
- */
-router.put("/:id", (req: Request, res: Response) => MovieController.update(req, res));
-
-/**
- * DELETE /movies/:id
- * Permanently delete a movie by its unique identifier.
- */
-router.delete("/:id", (req: Request, res: Response) => MovieController.delete(req, res));
-
-// Extras
-router.get("/genre/:genre", (req: Request, res: Response) =>MovieController.getMoviesByGenre(req, res));
-router.get("/search/title",(req: Request, res: Response) => MovieController.searchMovies(req, res));
-
-
-router.post("/import", (req, res) => MovieController.importMovieFromPexels(req, res));
-router.get("/pexels/search", async (req: Request, res: Response) => {
-  try {
-    const { query } = req.query;
-    if (!query || typeof query !== "string") {
-      return res.status(400).json({ message: "Falta el parámetro 'query'" });
-    }
-
-    const videos = await searchVideos(query, 5); // trae 5 resultados
-    res.status(200).json(videos);
-  } catch (error) {
-    console.error("Error en ruta de prueba Pexels:", error);
-    res.status(500).json({ message: "Error al obtener videos desde Pexels" });
-  }
-});
 export default router;
 </code></pre>
         </article>

@@ -1,0 +1,228 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> dao/MovieDAO.ts</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-Server.html">Server</a></li><li><a href="module-api_routes_averageRoutes.html">api/routes/averageRoutes</a></li><li><a href="module-routes_userRoutes.html">routes/userRoutes</a></li></ul><h3>Namespaces</h3><ul><li><a href="AverageController.html">AverageController</a></li><li><a href="FavoriteController.html">FavoriteController</a></li><li><a href="ReviewController.html">ReviewController</a></li></ul><h3>Classes</h3><ul><li><a href="GlobalController_GlobalController.html">GlobalController</a></li><li><a href="GlobalDAO_GlobalDAO.html">GlobalDAO</a></li><li><a href="MovieController.html">MovieController</a></li><li><a href="PasswordController.html">PasswordController</a></li><li><a href="module.exports_module.exports.html">exports</a></li></ul><h3>Interfaces</h3><ul><li><a href="IAverage.html">IAverage</a></li><li><a href="IFavorite.html">IFavorite</a></li><li><a href="IMovie.html">IMovie</a></li><li><a href="IReview.html">IReview</a></li><li><a href="IUser.html">IUser</a></li><li><a href="IVideoFile.html">IVideoFile</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AverageSchema">AverageSchema</a></li><li><a href="global.html#FavoriteSchema">FavoriteSchema</a></li><li><a href="global.html#MovieSchema">MovieSchema</a></li><li><a href="global.html#ReviewSchema">ReviewSchema</a></li><li><a href="global.html#User">User</a></li><li><a href="global.html#VideoFileSchema">VideoFileSchema</a></li><li><a href="global.html#controllers/FavoriteController.ts">controllers/FavoriteController.ts</a></li><li><a href="global.html#controllers/ReviewController.ts">controllers/ReviewController.ts</a></li><li><a href="global.html#create">create</a></li><li><a href="global.html#delete">delete</a></li><li><a href="global.html#deleteProfile">deleteProfile</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getAll">getAll</a></li><li><a href="global.html#getAverageByMovie">getAverageByMovie</a></li><li><a href="global.html#getMoviesByGenre">getMoviesByGenre</a></li><li><a href="global.html#getProfile">getProfile</a></li><li><a href="global.html#getUserIdFromToken">getUserIdFromToken</a></li><li><a href="global.html#globalController">globalController</a></li><li><a href="global.html#importMovieFromPexels">importMovieFromPexels</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#read">read</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#requestPasswordReset">requestPasswordReset</a></li><li><a href="global.html#resetPassword">resetPassword</a></li><li><a href="global.html#searchMovies">searchMovies</a></li><li><a href="global.html#searchVideos">searchVideos</a></li><li><a href="global.html#sendResetEmail">sendResetEmail</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#updateAverageForMovie">updateAverageForMovie</a></li><li><a href="global.html#updateProfile">updateProfile</a></li><li><a href="global.html#userSchema">userSchema</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>dao/MovieDAO.ts</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import Movie, { IMovie } from "../models/Movie";
+
+/**
+ * @file MovieDAO.ts
+ * @description Data Access Object (DAO) responsible for handling database operations related to movies.
+ * Provides methods for creating, reading, updating, deleting, and querying movie records.
+ */
+class MovieDAO {
+  /**
+   * Creates a new movie record in the database.
+   *
+   * @async
+   * @param {Partial&lt;IMovie>} data - The movie data to create.
+   * @returns {Promise&lt;IMovie>} The created movie document.
+   *
+   * @example
+   * const movie = await MovieDAO.create({ title: "Inception", genre: "Sci-Fi" });
+   */
+  async create(data: Partial&lt;IMovie>): Promise&lt;IMovie> {
+    const movie = new Movie(data);
+    return await movie.save();
+  }
+
+  /**
+   * Retrieves a movie document by its ID.
+   *
+   * @async
+   * @param {string} id - The movie ID.
+   * @returns {Promise&lt;IMovie | null>} The found movie or `null` if not found.
+   */
+  async read(id: string): Promise&lt;IMovie | null> {
+    return await Movie.findById(id);
+  }
+
+  /**
+   * Updates a movie document by its ID.
+   *
+   * @async
+   * @param {string} id - The movie ID.
+   * @param {Partial&lt;IMovie>} data - The updated movie data.
+   * @returns {Promise&lt;IMovie | null>} The updated movie or `null` if not found.
+   */
+  async update(id: string, data: Partial&lt;IMovie>): Promise&lt;IMovie | null> {
+    return await Movie.findByIdAndUpdate(id, data, { new: true });
+  }
+
+  /**
+   * Deletes a movie document by its ID.
+   *
+   * @async
+   * @param {string} id - The movie ID.
+   * @returns {Promise&lt;IMovie | null>} The deleted movie or `null` if not found.
+   */
+  async delete(id: string): Promise&lt;IMovie | null> {
+    return await Movie.findByIdAndDelete(id);
+  }
+
+  /**
+   * Retrieves all movies from the database, sorted by creation date (newest first).
+   *
+   * @async
+   * @returns {Promise&lt;IMovie[]>} An array of all movie documents.
+   */
+  async getAll(): Promise&lt;IMovie[]> {
+    return await Movie.find().sort({ createdAt: -1 });
+  }
+
+  /**
+   * Retrieves all movies that match a specific genre.
+   *
+   * @async
+   * @param {string} genre - The genre to filter by.
+   * @returns {Promise&lt;IMovie[]>} An array of movies within the given genre.
+   */
+  async findByGenre(genre: string): Promise&lt;IMovie[]> {
+    return await Movie.find({ genre }).sort({ createdAt: -1 });
+  }
+
+  /**
+   * Searches for movies that match a keyword in their title (case-insensitive).
+   *
+   * @async
+   * @param {string} keyword - The keyword to search in movie titles.
+   * @returns {Promise&lt;IMovie[]>} An array of movies whose titles match the keyword.
+   */
+  async searchByTitle(keyword: string): Promise&lt;IMovie[]> {
+    return await Movie.find({ title: { $regex: keyword, $options: "i" } });
+  }
+
+  /**
+   * Imports movie data from Pexels and saves it to the database.
+   * Adds a `source` property and sets the `releaseDate` to the current date.
+   *
+   * @async
+   * @param {Partial&lt;IMovie>} data - The movie data imported from Pexels.
+   * @returns {Promise&lt;IMovie>} The newly created movie document.
+   *
+   * @example
+   * await MovieDAO.importFromPexels({ title: "Nature Clip", genre: "Documentary" });
+   */
+  async importFromPexels(data: Partial&lt;IMovie>): Promise&lt;IMovie> {
+    const movie = new Movie({
+      ...data,
+      source: "pexels",
+      releaseDate: new Date(),
+    });
+    return await movie.save();
+  }
+}
+
+export default new MovieDAO();
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

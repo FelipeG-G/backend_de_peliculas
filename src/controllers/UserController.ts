@@ -1,81 +1,102 @@
+/**
+ * @file controllers/UserController.ts
+ * @description Main User Controller. Manages user registration, authentication, 
+ * password reset, profile handling, and basic CRUD operations on the User model.
+ * 
+ * Uses SendGrid for email delivery and JWT for authentication.
+ * 
+ * @module Controllers/UserController
+ */
+
 import { Request, Response } from "express";
 import GlobalController from "./GlobalController"; 
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/User";
-import sgMail from "@sendgrid/mail"; // ✅ Reemplazo de nodemailer
+import sgMail from "@sendgrid/mail";
 import crypto from "crypto";
 import UserDAO from "../dao/UserDAO";
 
-// ✅ Configuramos SendGrid con la API Key de Render (.env)
+// SendGrid configuration using API Key from environment variables
 sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
 
 /**
- * ✅ Nueva función para enviar correo con SendGrid
- * (Reemplaza el uso anterior de nodemailer, ya que Render no permite SMTP)
+ * Sends a password reset email to the user.
+ * 
+ * @async
+ * @function sendResetEmail
+ * @param {string} email - User's email address.
+ * @param {string} token - Unique reset token.
+ * @throws {Error} If the email fails to send.
  */
 const sendResetEmail = async (email: string, token: string) => {
-  const resetUrl = `https://to-do-list-client-movienest.vercel.app/#/new-password/${token}`; // Enlace del frontend
+  const resetUrl = `https://to-do-list-client-movienest.vercel.app/#/new-password/${token}`;
 
   const msg = {
     to: email,
     from: {
-      email: process.env.EMAIL_USER as string, // Dirección configurada en Render
+      email: process.env.EMAIL_USER as string,
       name: "MovieNest 🎬",
     },
-    subject: "Restablecimiento de contraseña",
+    subject: "Password Reset Request",
     html: `
-      <p>Hola,</p>
-      <p>Has solicitado restablecer tu contraseña.</p>
-      <p>Haz clic en el siguiente enlace para continuar:</p>
+      <p>Hello,</p>
+      <p>You have requested to reset your password.</p>
+      <p>Click the link below to continue:</p>
       <a href="${resetUrl}" target="_blank">${resetUrl}</a>
-      <p>Si no solicitaste este cambio, puedes ignorar este correo.</p>
+      <p>If you didn’t request this change, please ignore this email.</p>
       <br/>
-      <p>Atentamente,<br/>El equipo de MovieNest 🎬</p>
+      <p>Best regards,<br/>The MovieNest 🎬 Team</p>
     `,
   };
 
   await sgMail.send(msg);
 };
 
-// ✅ Ruta para solicitar el restablecimiento de contraseña
+/**
+ * Handles password reset requests by generating a temporary token
+ * and sending it to the user's email.
+ * 
+ * @async
+ * @function requestPasswordReset
+ * @param {Request} req - HTTP request object.
+ * @param {Response} res - HTTP response object.
+ * @returns {Promise<Response>} A success or error message.
+ */
 export const requestPasswordReset = async (req: Request, res: Response) => {
   try {
     const { email } = req.body;
-
-    console.log("📩 Intentando enviar correo de restablecimiento a:", email);
-
-    // 1️⃣ Buscar usuario por email
     const user = await User.findOne({ email });
-    if (!user) {
-      console.warn("⚠️ No se encontró el usuario con ese email");
-      return res.status(404).json({ message: "Usuario no encontrado" });
-    }
 
-    // 2️⃣ Generar token único
+    if (!user)
+      return res.status(404).json({ message: "User not found" });
+
     const resetToken = crypto.randomBytes(32).toString("hex");
-    const resetTokenExpires = Date.now() + 3600000; // 1 hora
+    const resetTokenExpires = Date.now() + 3600000; // 1 hour
 
     user.resetPasswordToken = resetToken;
     user.resetPasswordExpires = new Date(resetTokenExpires);
     await user.save();
 
-    // 3️⃣ Enviar correo con SendGrid (ya no usamos nodemailer)
     await sendResetEmail(email, resetToken);
-    console.log("✅ Correo de restablecimiento enviado correctamente a:", email);
-
-    res.json({ message: "Correo de restablecimiento enviado correctamente" });
+    res.json({ message: "Password reset email sent successfully" });
   } catch (error: any) {
-    console.error("❌ Error en requestPasswordReset:", error);
-
     res.status(500).json({
-      message: "Error al procesar la solicitud de restablecimiento de contraseña.",
+      message: "Error processing password reset request.",
       details: error.message,
     });
   }
 };
 
-// ✅ Ruta para restablecer la contraseña
+/**
+ * Resets the user's password using a valid reset token.
+ * 
+ * @async
+ * @function resetPassword
+ * @param {Request} req - Contains the token and the new password.
+ * @param {Response} res - Returns success or error message.
+ * @returns {Promise<Response>}
+ */
 export const resetPassword = async (req: Request, res: Response) => {
   const { token, newPassword } = req.body;
 
@@ -85,9 +106,8 @@ export const resetPassword = async (req: Request, res: Response) => {
       resetPasswordExpires: { $gt: Date.now() },
     });
 
-    if (!user) {
-      return res.status(400).json({ message: "❌ El token ha expirado o no es válido" });
-    }
+    if (!user)
+      return res.status(400).json({ message: "❌ Token expired or invalid" });
 
     const hashedPassword = await bcrypt.hash(newPassword, 10);
     user.password = hashedPassword;
@@ -95,23 +115,28 @@ export const resetPassword = async (req: Request, res: Response) => {
     user.resetPasswordExpires = undefined;
     await user.save();
 
-    return res.status(200).json({ message: "✅ Contraseña restablecida correctamente" });
+    return res.status(200).json({ message: "✅ Password successfully reset" });
   } catch (error) {
-    return res.status(500).json({ message: "❌ Error al restablecer la contraseña", error });
+    return res.status(500).json({ message: "❌ Error resetting password", error });
   }
 };
 
-// ✅ Función de registro
+/**
+ * Registers a new user in the database.
+ * 
+ * @async
+ * @function registerUser
+ * @param {Request} req - Contains user data (username, email, password, etc.).
+ * @param {Response} res - Returns success or error message.
+ * @returns {Promise<Response>}
+ */
 export const registerUser = async (req: Request, res: Response) => {
   const { username, lastname, birthdate, email, password } = req.body;
 
   try {
     const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res
-        .status(400)
-        .json({ message: "❌ Este correo ya está registrado" });
-    }
+    if (existingUser)
+      return res.status(400).json({ message: "❌ This email is already registered" });
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -124,36 +149,35 @@ export const registerUser = async (req: Request, res: Response) => {
     });
 
     await newUser.save();
-
-    return res.status(201).json({ message: "✅ Registro exitoso" });
+    return res.status(201).json({ message: "✅ User registered successfully" });
   } catch (error: any) {
-    return res
-      .status(500)
-      .json({
-        message: "❌ Error al registrar el usuario",
-        error: error.message,
-      });
+    return res.status(500).json({
+      message: "❌ Error registering user",
+      error: error.message,
+    });
   }
 };
 
-// ✅ Función de inicio de sesión
+/**
+ * Logs in an existing user and returns a JWT token.
+ * 
+ * @async
+ * @function loginUser
+ * @param {Request} req - Contains email and password.
+ * @param {Response} res - Returns a JWT if credentials are valid.
+ * @returns {Promise<Response>}
+ */
 export const loginUser = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   try {
     const user = await User.findOne({ email });
-    if (!user) {
-      return res
-        .status(400)
-        .json({ message: "❌ Usuario o contraseña incorrectos" });
-    }
+    if (!user)
+      return res.status(400).json({ message: "❌ Invalid email or password" });
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      return res
-        .status(400)
-        .json({ message: "❌ Usuario o contraseña incorrectos" });
-    }
+    if (!isPasswordValid)
+      return res.status(400).json({ message: "❌ Invalid email or password" });
 
     const token = jwt.sign(
       { userId: user._id, email: user.email },
@@ -162,52 +186,62 @@ export const loginUser = async (req: Request, res: Response) => {
     );
 
     return res.status(200).json({
-      message: "✅ Inicio de sesión exitoso",
+      message: "✅ Login successful",
       token,
     });
   } catch (error: any) {
-    console.error("Error en login:", error);
     return res.status(500).json({
-      message: "❌ Error al intentar iniciar sesión",
+      message: "❌ Error during login attempt",
       error: error.message,
     });
   }
 };
 
-
-// ✅ Obtener el perfil del usuario logueado
+/**
+ * Retrieves the authenticated user's profile using the JWT token.
+ * 
+ * @async
+ * @function getProfile
+ * @param {Request} req - Must include the Authorization header with JWT.
+ * @param {Response} res - Returns user data without the password field.
+ * @returns {Promise<Response>}
+ */
 export const getProfile = async (req: Request, res: Response) => {
   try {
     const authHeader = req.headers.authorization;
     const token = authHeader && authHeader.split(" ")[1];
+    if (!token) return res.status(401).json({ message: "Token not provided" });
 
-    if (!token) return res.status(401).json({ message: "Token no proporcionado" });
-
-    if (!process.env.JWT_SECRET) {
-      return res.status(500).json({ message: "JWT secret no configurado" });
-    }
+    if (!process.env.JWT_SECRET)
+      return res.status(500).json({ message: "JWT secret not configured" });
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET as jwt.Secret) as { userId: string };
     const user = await User.findById(decoded.userId).select("-password");
 
-    if (!user) return res.status(404).json({ message: "Usuario no encontrado" });
+    if (!user) return res.status(404).json({ message: "User not found" });
 
     res.json({ user });
   } catch (error: any) {
-    res.status(401).json({ message: "Token inválido o expirado", error: error.message });
+    res.status(401).json({ message: "Invalid or expired token", error: error.message });
   }
 };
 
-
-// ✅ Editar perfil del usuario logueado
+/**
+ * Updates the authenticated user's profile information.
+ * 
+ * @async
+ * @function updateProfile
+ * @param {Request} req - Contains updated profile data.
+ * @param {Response} res - Returns confirmation message and updated user data.
+ * @returns {Promise<Response>}
+ */
 export const updateProfile = async (req: Request, res: Response) => {
   try {
     const { email, username, lastname, birthdate, password } = req.body;
 
     const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(404).json({ message: "❌ Usuario no encontrado" });
-    }
+    if (!user)
+      return res.status(404).json({ message: "❌ User not found" });
 
     if (username) user.username = username;
     if (lastname) user.lastname = lastname;
@@ -217,42 +251,65 @@ export const updateProfile = async (req: Request, res: Response) => {
     await user.save();
 
     return res.status(200).json({
-      message: "✅ Perfil actualizado correctamente",
+      message: "✅ Profile updated successfully",
       user,
     });
   } catch (error: any) {
     return res.status(500).json({
-      message: "❌ Error al actualizar perfil",
+      message: "❌ Error updating profile",
       error: error.message,
     });
   }
 };
 
-// ✅ Eliminar cuenta del usuario logueado
+/**
+ * Deletes the authenticated user's account.
+ * 
+ * @async
+ * @function deleteProfile
+ * @param {Request} req - Must include the Authorization header with JWT.
+ * @param {Response} res - Returns success or error message.
+ * @returns {Promise<Response>}
+ */
 export const deleteProfile = async (req: Request, res: Response) => {
   try {
     const authHeader = req.headers.authorization;
     const token = authHeader && authHeader.split(" ")[1];
-    if (!token) return res.status(401).json({ message: "Token no proporcionado" });
+    if (!token) return res.status(401).json({ message: "Token not provided" });
 
-    if (!process.env.JWT_SECRET) {
-      return res.status(500).json({ message: "JWT secret no configurado" });
-    }
+    if (!process.env.JWT_SECRET)
+      return res.status(500).json({ message: "JWT secret not configured" });
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET as jwt.Secret) as { userId: string };
     const user = await User.findById(decoded.userId);
-    if (!user) return res.status(404).json({ message: "Usuario no encontrado" });
+    if (!user) return res.status(404).json({ message: "User not found" });
 
     await user.deleteOne();
-
-    return res.status(200).json({ message: "✅ Cuenta eliminada correctamente" });
+    return res.status(200).json({ message: "✅ Account deleted successfully" });
   } catch (error: any) {
-    console.error("Error al eliminar cuenta:", error);
-    return res.status(500).json({ message: "❌ Error al eliminar cuenta", error: error.message });
+    return res.status(500).json({ message: "❌ Error deleting account", error: error.message });
   }
 };
 
-// ✅ Combina los métodos genéricos de GlobalController + específicos
+/**
+ * Combined User Controller.
+ * Merges generic GlobalController methods with user-specific logic.
+ * 
+ * @constant
+ * @type {Object}
+ * @property {Function} create - Create a new record.
+ * @property {Function} read - Retrieve a record by ID.
+ * @property {Function} update - Update a record.
+ * @property {Function} delete - Delete a record.
+ * @property {Function} getAll - Retrieve all records.
+ * @property {Function} registerUser - User registration.
+ * @property {Function} loginUser - User login.
+ * @property {Function} requestPasswordReset - Password reset request.
+ * @property {Function} resetPassword - Password reset.
+ * @property {Function} getProfile - Retrieve user profile.
+ * @property {Function} updateProfile - Update user profile.
+ * @property {Function} deleteProfile - Delete user account.
+ */
 const globalController = new GlobalController(UserDAO);
 const UserController = {
   create: globalController.create.bind(globalController),
