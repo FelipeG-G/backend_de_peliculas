@@ -1,11 +1,11 @@
 import { Router, Request, Response } from "express";
 import ReviewController from "../controllers/ReviewController";
-import AverageController from "../controllers/AverageController";
+//import AverageController from "../controllers/AverageController";
 
 const router = Router();
 
 // 📊 Promedios
-router.get("/average/:pexelsId",(req: Request, res: Response) => AverageController.getAverage(req, res));
+//router.get("/average/:pexelsId",(req: Request, res: Response) => AverageController.getAverage(req, res));
 
 // Crear reseña
 router.post("/", (req: Request, res: Response) => ReviewController.addReview(req, res));
