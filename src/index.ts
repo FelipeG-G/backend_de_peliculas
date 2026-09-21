@@ -7,6 +7,7 @@
  * @module Server
  */
 
+import {allowedOrigins} from "./config/allowedOrigins";
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors"; // Enables CORS to allow frontend requests
@@ -41,10 +42,6 @@ app.use(express.json());
  * Includes development and production environments (Vercel, Render, Localhost).
  * @type {string[]}
  */
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://to-do-list-client-movienest.vercel.app"
-];
 
 /**
  * CORS Middleware.

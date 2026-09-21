@@ -7,6 +7,7 @@
  */
 
 import { Request, Response } from "express";
+import {allowedOrigins} from "../config/allowedOrigins";
 import crypto from "crypto";
 import bcrypt from "bcryptjs";
 import sgMail from "@sendgrid/mail";
@@ -75,7 +76,14 @@ class PasswordController {
       await user.save();
 
       // Reset link
-      const resetURL = `https://to-do-list-client-movienest.vercel.app/#/new-password?token=${resetToken}`;
+      const origin = req.headers.origin;
+
+      if (!origin || !allowedOrigins.includes(origin)) {
+        res.status(403).json({ msg: "Origin not allowed" });
+        return;
+      }
+      const resetURL = `${origin}/#/new-password?token=${resetToken}`;
+
 
       const htmlMessage = `
         <p>Hello ${user.username || "user"},</p>

@@ -10,6 +10,7 @@
 
 import { Request, Response } from "express";
 import GlobalController from "./GlobalController"; 
+import {allowedOrigins} from "../config/allowedOrigins";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/User";
@@ -29,9 +30,9 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
  * @param {string} token - Unique reset token.
  * @throws {Error} If the email fails to send.
  */
-const sendResetEmail = async (email: string, token: string) => {
-  const resetUrl = `https://to-do-list-client-movienest.vercel.app/#/new-password/${token}`;
-
+const sendResetEmail = async (email: string, token: string, origin: string) => {
+  const resetUrl = `${origin}/#/new-password/${token}`;
+    
   const msg = {
     to: email,
     from: {
@@ -78,7 +79,13 @@ export const requestPasswordReset = async (req: Request, res: Response) => {
     user.resetPasswordExpires = new Date(resetTokenExpires);
     await user.save();
 
-    await sendResetEmail(email, resetToken);
+    const origin = req.headers.origin;
+
+    if (!origin || !allowedOrigins.includes(origin)) {
+      return res.status(403).json({ msg: "Origin not allowed" });
+    }
+
+    await sendResetEmail(email, resetToken, origin);
     res.json({ message: "Password reset email sent successfully" });
   } catch (error: any) {
     res.status(500).json({
@@ -86,6 +93,7 @@ export const requestPasswordReset = async (req: Request, res: Response) => {
       details: error.message,
     });
   }
+
 };
 
 /**
