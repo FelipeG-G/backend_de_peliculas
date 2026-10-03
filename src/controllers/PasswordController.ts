@@ -53,9 +53,11 @@ class PasswordController {
    * {
    *   "email": "user@email.com"
    * }
-   */
-  async forgotPassword(req: Request, res: Response): Promise<void> {
-    try {
+  */
+ async forgotPassword(req: Request, res: Response): Promise<void> {
+   try {
+      console.log("BODY RECIBIDO:", req.body);
+      console.log("CONTENT-TYPE:", req.headers["content-type"]);
       const { email } = req.body;
 
       if (!email) {
@@ -68,7 +70,7 @@ class PasswordController {
         res.status(404).json({ msg: "User not found" });
         return;
       }
-
+      
       // Generate unique reset token
       const resetToken = crypto.randomBytes(32).toString("hex");
       user.resetPasswordToken = resetToken;
@@ -77,16 +79,16 @@ class PasswordController {
 
       // Reset link
       const origin = req.headers.origin;
-
+      
       if (!origin || !allowedOrigins.includes(origin)) {
         res.status(403).json({ msg: "Origin not allowed" });
         return;
       }
       const resetURL = `${origin}/#/new-password/${resetToken}`;
-
+      
 
       const htmlMessage = `
-        <p>Hello ${user.username || "user"},</p>
+      <p>Hello ${user.username || "user"},</p>
         <p>You requested to reset your password.</p>
         <p>Click the following link to set a new password:</p>
         <a href="${resetURL}">${resetURL}</a>
