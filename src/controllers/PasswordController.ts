@@ -82,7 +82,7 @@ class PasswordController {
         res.status(403).json({ msg: "Origin not allowed" });
         return;
       }
-      const resetURL = `${origin}/#/new-password?token=${resetToken}`;
+      const resetURL = `${origin}/#/new-password/${resetToken}`;
 
 
       const htmlMessage = `
@@ -97,21 +97,22 @@ class PasswordController {
       console.log("🔗 Password reset URL:", resetURL);
 
       // Send email using SendGrid or fallback to Nodemailer
-      if (process.env.SENDGRID_API_KEY) {
-        try {
-          await sgMail.send({
-            to: user.email,
-            from: "movienestplataforma@gmail.com", // Must be verified in SendGrid
-            subject: "Password Recovery",
-            html: htmlMessage,
-          });
-          console.log("✅ Email sent using SendGrid");
-        } catch (err: any) {
-          console.error("❌ Error sending with SendGrid:", err.response?.body || err);
-          throw new Error("Error sending email with SendGrid");
-        }
-      } else {
+      // if (process.env.SENDGRID_API_KEY) {
+      //   try {
+      //     await sgMail.send({
+      //       to: user.email,
+      //       from: "movienest1009@gmail.com", // Must be verified in SendGrid
+      //       subject: "Password Recovery",
+      //       html: htmlMessage,
+      //     });
+      //     console.log("✅ Email sent using SendGrid");
+      //   } catch (err: any) {
+      //     console.error("❌ Error sending with SendGrid:", err.response?.body || err);
+      //     throw new Error("Error sending email with SendGrid");
+      //   }
+      // } else {
         // Fallback: send email using Nodemailer (local or no SendGrid)
+        
         if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
           throw new Error("Missing EMAIL_USER or EMAIL_PASS in .env file");
         }
@@ -130,7 +131,7 @@ class PasswordController {
           await transporter.sendMail({
             from: `"MovieNest" <${process.env.EMAIL_USER}>`,
             to: user.email,
-            subject: "Password Recovery",
+            subject: "Recuperacion de contraseña",
             html: htmlMessage,
           });
           console.log("✅ Email sent using Nodemailer");
@@ -138,7 +139,7 @@ class PasswordController {
           console.error("❌ Error sending with Nodemailer:", err);
           throw new Error("Error sending email with Nodemailer");
         }
-      }
+      
 
       res.json({ msg: "A password recovery email has been sent" });
     } catch (err: any) {

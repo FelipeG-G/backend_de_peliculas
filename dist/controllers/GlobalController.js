@@ -1,14 +1,29 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
- * Controlador genérico que proporciona operaciones CRUD comunes.
+ * @file GlobalController.ts
+ * @description Generic controller that provides reusable CRUD operations
+ * (Create, Read, Update, Delete) for any entity in the system.
+ * It relies on a DAO object that implements the corresponding
+ * data access operations.
+ *
+ * @template T Generic type representing the entity managed by the controller.
  */
 class GlobalController {
+    /**
+     * Creates a new instance of the global controller.
+     * @param {any} dao - Data Access Object (DAO) that implements CRUD methods.
+     */
     constructor(dao) {
         this.dao = dao;
     }
     /**
-     * Crear un nuevo documento en la base de datos.
+     * Creates a new document in the database.
+     *
+     * @async
+     * @param {Request} req - HTTP request object containing data to create in `req.body`.
+     * @param {Response} res - HTTP response object used to return the result.
+     * @returns {Promise<void>} Sends a response with the created document or an error.
      */
     async create(req, res) {
         try {
@@ -20,7 +35,12 @@ class GlobalController {
         }
     }
     /**
-     * Recuperar un documento por su ID.
+     * Retrieves a document by its ID.
+     *
+     * @async
+     * @param {Request} req - HTTP request object containing the ID in `req.params.id`.
+     * @param {Response} res - HTTP response object.
+     * @returns {Promise<void>} Sends the found document or a 404 error if not found.
      */
     async read(req, res) {
         try {
@@ -32,7 +52,13 @@ class GlobalController {
         }
     }
     /**
-     * Actualizar un documento por ID.
+     * Updates a document by its ID.
+     *
+     * @async
+     * @param {Request} req - HTTP request object containing the ID in `req.params.id`
+     * and the updated data in `req.body`.
+     * @param {Response} res - HTTP response object.
+     * @returns {Promise<void>} Sends the updated document or an error.
      */
     async update(req, res) {
         try {
@@ -44,7 +70,12 @@ class GlobalController {
         }
     }
     /**
-     * Eliminar un documento por ID.
+     * Deletes a document by its ID.
+     *
+     * @async
+     * @param {Request} req - HTTP request object containing the ID in `req.params.id`.
+     * @param {Response} res - HTTP response object.
+     * @returns {Promise<void>} Sends the deleted document or a 404 error if not found.
      */
     async delete(req, res) {
         try {
@@ -56,7 +87,12 @@ class GlobalController {
         }
     }
     /**
-     * Recuperar todos los documentos (opcionalmente filtrados por consulta).
+     * Retrieves all stored documents (may include filters via query parameters).
+     *
+     * @async
+     * @param {Request} req - HTTP request object, possibly containing filters in `req.query`.
+     * @param {Response} res - HTTP response object.
+     * @returns {Promise<void>} Sends a list of documents or an error.
      */
     async getAll(req, res) {
         try {

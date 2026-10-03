@@ -34,15 +34,28 @@ var __importStar = (this && this.__importStar) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
+/**
+ * @schema userSchema
+ * @description Defines the MongoDB schema for users.
+ */
 const userSchema = new mongoose_1.Schema({
     username: { type: String, required: true },
     lastname: { type: String, required: true },
     birthdate: { type: Date, required: true },
-    email: { type: String, required: true, unique: true, match: [/\S+@\S+\.\S+/, "Por favor, ingrese un correo electrónico válido"] },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        match: [/\S+@\S+\.\S+/, "Please enter a valid email address"],
+    },
     password: { type: String, required: true },
     resetPasswordToken: { type: String },
     resetPasswordExpires: { type: Date },
 }, { timestamps: true });
+/**
+ * @model User
+ * @description Mongoose model for the User collection.
+ */
 const User = mongoose_1.default.model("User", userSchema);
 exports.default = User;
 //# sourceMappingURL=User.js.map

@@ -19,7 +19,7 @@ import crypto from "crypto";
 import UserDAO from "../dao/UserDAO";
 
 // SendGrid configuration using API Key from environment variables
-sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
+// sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
 
 /**
  * Sends a password reset email to the user.
@@ -109,6 +109,9 @@ export const resetPassword = async (req: Request, res: Response) => {
   const { token, newPassword } = req.body;
 
   try {
+     
+
+
     const user = await User.findOne({
       resetPasswordToken: token,
       resetPasswordExpires: { $gt: Date.now() },
@@ -175,6 +178,8 @@ export const registerUser = async (req: Request, res: Response) => {
  * @param {Response} res - Returns a JWT if credentials are valid.
  * @returns {Promise<Response>}
  */
+
+
 export const loginUser = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 

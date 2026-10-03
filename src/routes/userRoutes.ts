@@ -11,6 +11,7 @@ import {
   requestPasswordReset,
   resetPassword,
 } from "../controllers/UserController";
+
 import UserController from "../controllers/UserController";
 
 const router = Router();

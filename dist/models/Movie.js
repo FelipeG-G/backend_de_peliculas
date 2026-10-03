@@ -34,6 +34,22 @@ var __importStar = (this && this.__importStar) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
+/**
+ * @schema VideoFileSchema
+ * @description Defines the subdocument schema for video files.
+ */
+const VideoFileSchema = new mongoose_1.Schema({
+    id: Number,
+    quality: String,
+    file_type: String,
+    width: Number,
+    height: Number,
+    link: String,
+});
+/**
+ * @schema MovieSchema
+ * @description Defines the MongoDB schema for movies.
+ */
 const MovieSchema = new mongoose_1.Schema({
     title: { type: String, required: true },
     description: { type: String },
@@ -42,7 +58,16 @@ const MovieSchema = new mongoose_1.Schema({
     rating: { type: Number, min: 0, max: 10 },
     duration: { type: Number },
     director: { type: String },
-    createdAt: { type: Date, default: Date.now }
+    image: { type: String },
+    url: { type: String },
+    videoFiles: [VideoFileSchema],
+    source: { type: String, default: "local" },
+    user: { type: String },
+    createdAt: { type: Date, default: Date.now },
 });
+/**
+ * @model Movie
+ * @description Mongoose model for the Movie collection.
+ */
 exports.default = mongoose_1.default.model("Movie", MovieSchema);
 //# sourceMappingURL=Movie.js.map

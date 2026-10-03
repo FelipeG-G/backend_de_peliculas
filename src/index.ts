@@ -17,6 +17,7 @@ import routes from "./routes/routes"; // General API routes
 import userRoutes from "./routes/userRoutes"; // User management routes
 import favoriteRoutes from "./routes/favoriteRoutes"; // Favorite routes
 import reviewRoutes from "./routes/reviewRoutes"; // Review routes
+import passwordRoutes from "./routes/passwordRoutes"; // Review routes
 import averageRoutes from "./routes/averageRoutes"; // Average rating routes
 
 dotenv.config(); // Load environment variables from .env file
@@ -107,6 +108,7 @@ app.use("/api/v1/reviews", reviewRoutes);
  * Prefix: `/api/v1/average`
  */
 app.use("/api/v1/average", averageRoutes);
+app.use("/api/v1/password", passwordRoutes);
 
 /**
  * @route GET /
