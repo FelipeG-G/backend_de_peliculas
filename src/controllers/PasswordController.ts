@@ -137,7 +137,7 @@ class PasswordController {
           console.log("✅ Email sent using Nodemailer");
         } catch (err: any) {
           console.error("❌ Error sending with Nodemailer:", err);
-          throw new Error("Error sending email with Nodemailer");
+          throw err;
         }
       
 
