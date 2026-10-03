@@ -142,18 +142,26 @@ class PasswordController {
       
 
       res.json({ msg: "A password recovery email has been sent" });
-    } catch (err: any) {
-      console.error("🔥 Full ForgotPassword error:", err);
-      res.status(500).json({
-        msg: "Server error",
-        error: err.message || JSON.stringify(err),
-      });
-    }
-  }
+    }catch (error: any) {
+    console.error("ERROR REAL DE NODEMAILER:", error);
 
-  /**
-   * @async
-   * @method resetPassword
+       res.status(500).json({
+        msg: "Server error",
+        error: error.message
+    });
+}
+    //  catch (err: any) {
+    //   console.error("🔥 Full ForgotPassword error:", err);
+    //   res.status(500).json({
+    //     msg: "Server error",
+    //     error: err.message || JSON.stringify(err),
+    //   });
+    // }
+    }
+    
+    /**
+     * @async
+     * @method resetPassword
    * @description Step 2 of the recovery process: 
    * validates the received token and updates the user's password.
    * 
